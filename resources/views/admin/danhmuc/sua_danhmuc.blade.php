@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title', 'Danh mục')
-@section('title', 'sửa')
+@section('action', 'sửa')
 @section('content')
 <div class="col-lg-7" style="padding-bottom:120px">
     @if(count($errors) > 0)
