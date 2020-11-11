@@ -109,6 +109,18 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
+                            <a href="#"><i class="fa fa-industry" aria-hidden="true"></i> Nhà cung cấp<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{URL::to('/admin/supplier/supplier-list')}}">Xem nhà cung cấp</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/admin/supplier/supplier-add')}}">Thêm nhà cung cấp</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
