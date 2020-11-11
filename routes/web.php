@@ -33,4 +33,17 @@ Route::group(['prefix' => 'admin'], function () {
         //-----Xóa-----
         Route::get('/cate-del/{id}', 'DanhmucController@getDelCate');
     });
+
+    Route::group(['prefix' => 'brand'], function () {
+        //-----Thêm------
+        Route::get('/brand-add', 'DongspController@getAddBrand');
+        Route::post('/brand-add', 'DongspController@postAddBrand');
+        //-----Xem-----
+        Route::get('/brand-list', 'DongspController@getListBrand');
+        //-----Sửa-----
+        Route::get('/brand-edit/{id}', 'DongspController@getEditBrand');
+        Route::post('/brand-update/{id}', 'DongspController@postEditBrand');
+        //-----Xóa-----
+        Route::get('/brand-del/{id}', 'DongspController@getDelBrand');
+    });
 });

@@ -25,6 +25,8 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{asset('public/admin/bower_components/datatables-responsive/css/dataTables.responsive.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -90,6 +92,18 @@
                                 </li>
                                 <li>
                                     <a href="{{URL::to('/admin/cate/cate-add')}}">Thêm danh mục</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-trademark"></i> Dòng sản phẩm<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{URL::to('/admin/brand/brand-list')}}">Xem dòng sản phẩm</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/admin/brand/brand-add')}}">Thêm dòng sản phẩm</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

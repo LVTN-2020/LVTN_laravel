@@ -10,6 +10,6 @@ class Dongsanpham extends Model
     use HasFactory;
 
     protected $table = 'dongsanpham';
-    protected $fillable = ['ten_dongsp', 'trangthai_danhmuc'];
+    protected $fillable = ['ten_dongsp', 'trangthai_dongsp'];
     protected $primaryKey = 'ma_dongsp';
 }
