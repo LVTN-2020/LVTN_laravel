@@ -46,4 +46,17 @@ Route::group(['prefix' => 'admin'], function () {
         //-----Xóa-----
         Route::get('/brand-del/{id}', 'DongspController@getDelBrand');
     });
+
+    Route::group(['prefix' => 'supplier'], function () {
+        //-----Thêm------
+        Route::get('/supplier-add', 'NhacungcapController@getAddSupplier');
+        Route::post('/supplier-add', 'NhacungcapController@postAddSupplier');
+        //-----Xem-----
+        Route::get('/supplier-list', 'NhacungcapController@getListSupplier');
+        //-----Sửa-----
+        Route::get('/supplier-edit/{id}', 'NhacungcapController@getEditSupplier');
+        Route::post('/supplier-update/{id}', 'NhacungcapController@postEditSupplier');
+        //-----Xóa-----
+        Route::get('/supplier-del/{id}', 'NhacungcapController@getDelSupplier');
+    });
 });
