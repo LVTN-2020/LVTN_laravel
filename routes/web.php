@@ -19,3 +19,18 @@ Route::get('/', function () {
 
 Route::get('/admin', 'AdminController@index');
 Route::get('trang-chu', 'HomeController@index');
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'cate'], function () {
+        //-----Thêm------
+        Route::get('/cate-add', 'DanhmucController@getAddCate');
+        Route::post('/cate-add', 'DanhmucController@postAddCate');
+        //-----Xem-----
+        Route::get('/cate-list', 'DanhmucController@getListCate');
+        //-----Sửa-----
+        Route::get('/cate-edit/{id}', 'DanhmucController@getEditCate');
+        Route::post('/cate-update/{id}', 'DanhmucController@postEditCate');
+        //-----Xóa-----
+        Route::get('/cate-del/{id}', 'DanhmucController@getDelCate');
+    });
+});

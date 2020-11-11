@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL::to(/admin)}}">Admin</a>
+                <a class="navbar-brand" href="{{URL::to('/admin')}}">Admin</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -83,13 +83,13 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh mục<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List Category</a>
+                                    <a href="{{URL::to('/admin/cate/cate-list')}}">List Category</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Category</a>
+                                    <a href="{{URL::to('/admin/cate/cate-add')}}">Thêm danh mục</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -162,14 +162,8 @@
     <script src="{{asset('public/admin/bower_components/DataTables/media/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('public/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js')}}"></script>
 
+    <script src="{{asset('public/admin/dist/js/myscript.js')}}"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
 </body>
 
 </html>
