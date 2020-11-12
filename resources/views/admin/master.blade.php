@@ -105,6 +105,7 @@
                                 <li>
                                     <a href="{{URL::to('/admin/brand/brand-add')}}">Thêm dòng sản phẩm</a>
                                 </li>
+                                <
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -121,13 +122,22 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cube fa-fw"></i> Sản phẩm<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List Product</a>
+                                    <a href="{{URL::to('/admin/product/product-list')}}">Xem sản phẩm</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Product</a>
+                                    <a href="{{URL::to('/admin/product/product-add')}}">Thêm sản phẩm</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/admin/product/product-image-add')}}">Thêm hình ảnh chi tiết</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/admin/product/product-size-add')}}">Thêm size</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/admin/product/product-color-add')}}">Thêm màu</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
