@@ -59,4 +59,26 @@ Route::group(['prefix' => 'admin'], function () {
         //-----Xóa-----
         Route::get('/supplier-del/{id}', 'NhacungcapController@getDelSupplier');
     });
+
+    Route::group(['prefix' => 'product'], function () {
+        //-----Thêm------
+        Route::get('/product-add', 'SanphamController@getAddProduct');
+        Route::post('/product-add', 'SanphamController@postAddProduct');
+        //-----Xem-----
+        Route::get('/product-list', 'SanphamController@getListProduct');
+        //-----Sửa-----
+        Route::get('/product-edit/{id}', 'SanphamController@getEditProduct');
+        Route::post('/product-update/{id}', 'SanphamController@postEditProduct');
+        //-----Xóa-----
+        Route::get('/product-del/{id}', 'SanphamController@getDelProduct');
+
+        Route::get('/product-image-add', 'SanphamController@getAddProductImage');
+        Route::post('/product-image-add', 'SanphamController@postAddProductImage');
+
+        Route::get('/product-size-add', 'SanphamController@getAddProductSize');
+        Route::post('/product-size-add', 'SanphamController@postAddProductSize');
+
+        Route::get('/product-color-add', 'SanphamController@getAddProductColor');
+        Route::post('/product-color-add', 'SanphamController@postAddProductColor');
+    });
 });
