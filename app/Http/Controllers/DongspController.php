@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Dongsanpham;
+use App\Models\Danhmuc;
+use App\Models\Sanpham;
 use Illuminate\Http\Request;
 
 class DongspController extends Controller
@@ -66,6 +69,19 @@ class DongspController extends Controller
         $del_brand = Dongsanpham::find($id);
         $del_brand->delete();
         return redirect('/admin/brand/brand-list')->with(['flag' => 'success', 'message' => 'Xóa dòng sản phẩm thành công']);
+    }
+        //end function admin
+    public function show_dongsp_home($id){
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp')->get();
+        $sanpham_id = Sanpham::join('dongsanpham as dsp', 'sanpham.ma_dongsp', '=', 'dsp.ma_dongsp')
+                                ->where('sanpham.ma_dongsp', $id)
+                                ->get();
+        return view('pages.dongsanpham.show_dongsp') 
+        ->with('danhmuc', $danhmuc)
+        ->with('dongsanpham', $dongsanpham)
+        ->with('sanpham_id', $sanpham_id);
+
     }
 
 }

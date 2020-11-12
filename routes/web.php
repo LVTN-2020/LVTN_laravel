@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/admin', 'AdminController@index');
 Route::get('trang-chu', 'HomeController@index');
@@ -82,3 +82,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/product-color-add', 'SanphamController@postAddProductColor');
     });
 });
+//frontend
+Route::get('/','HomeController@index');
+//Dong san pham trang chu
+Route::get('/dong-san-pham/{ma_sp}','DongspController@show_dongsp_home');
