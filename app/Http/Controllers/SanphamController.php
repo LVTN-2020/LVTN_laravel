@@ -29,7 +29,7 @@ class SanphamController extends Controller
 
         $this->validate($req, [
             'tensp'      => 'required|unique:sanpham,ten_sp',
-            'fImages'    => 'required|mimes:jpg,png',
+            'fImages'    => 'required|mimes:jpeg,jpg,png',
             'danhmuc_sp' => 'required',
             'dsp'        => 'required',
             'ncc_sp'     => 'required',
@@ -37,7 +37,7 @@ class SanphamController extends Controller
             'tensp.required'   => 'Vui lòng điền tên sản phẩm',
             'tensp.unique'     => 'Không được trùng tên sản phẩm',
             'fImages.required' => 'Vui lòng không để hình ảnh rỗng',
-            'fImages.mimes'    => 'Vui lòng định dạng đúng jpg hoặc png',
+            'fImages.mimes'    => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
             'danhmuc_sp'       => 'Vui lòng chọn danh mục',
             'dsp'              => 'Vui lòng chọn dòng sản phẩm',
             'ncc_sp'           => 'Vui lòng chọn nhà cung cấp',
