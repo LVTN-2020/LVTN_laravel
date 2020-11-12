@@ -88,7 +88,7 @@
                             <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i> Danh mục<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{URL::to('/admin/cate/cate-list')}}">List Category</a>
+                                    <a href="{{URL::to('/admin/cate/cate-list')}}">Xem danh mục</a>
                                 </li>
                                 <li>
                                     <a href="{{URL::to('/admin/cate/cate-add')}}">Thêm danh mục</a>
