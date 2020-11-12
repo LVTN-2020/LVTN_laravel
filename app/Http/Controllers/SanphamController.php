@@ -11,6 +11,7 @@ use App\Models\Sanpham_mau;
 use App\Models\Sanpham_size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File; 
 
 class SanphamController extends Controller
 {
@@ -99,7 +100,10 @@ class SanphamController extends Controller
     public function getDelProduct($id){
         $del_img_sp = Sanpham_ha::join('sanpham as sp', 'sanpham_hinhanh.ma_sp', 'sp.ma_sp')
                                 ->where('sanpham_hinhanh.ma_sp', $id)
-                                ->delete();
+                                ->get();
+        foreach($del_img_sp as $value){
+            File::delete('public/admin/upload/details/'. $value['hinhanh']);
+        }
         $del_size_sp = Sanpham_size::join('sanpham as sp', 'sanpham_size.ma_sp', 'sp.ma_sp')
                                     ->where('sanpham_size.ma_sp', $id)
                                     ->delete();
@@ -107,6 +111,7 @@ class SanphamController extends Controller
                                 ->where('sanpham_mau.ma_sp', $id)
                                 ->delete();
         $del_sp = Sanpham::find($id);
+        File::delete('public/admin/upload/'. $del_sp->hinhanh);
         $del_sp->delete();
         return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Xóa sản phẩm thành công']);
         
