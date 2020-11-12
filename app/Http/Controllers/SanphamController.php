@@ -11,6 +11,7 @@ use App\Models\Sanpham_mau;
 use App\Models\Sanpham_size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File; 
 
 class SanphamController extends Controller
 {
@@ -28,7 +29,7 @@ class SanphamController extends Controller
 
         $this->validate($req, [
             'tensp'      => 'required|unique:sanpham,ten_sp',
-            'fImages'    => 'required|mimes:jpg,png',
+            'fImages'    => 'required|mimes:jpeg,jpg,png',
             'danhmuc_sp' => 'required',
             'dsp'        => 'required',
             'ncc_sp'     => 'required',
@@ -36,7 +37,7 @@ class SanphamController extends Controller
             'tensp.required'   => 'Vui lòng điền tên sản phẩm',
             'tensp.unique'     => 'Không được trùng tên sản phẩm',
             'fImages.required' => 'Vui lòng không để hình ảnh rỗng',
-            'fImages.mimes'    => 'Vui lòng định dạng đúng jpg hoặc png',
+            'fImages.mimes'    => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
             'danhmuc_sp'       => 'Vui lòng chọn danh mục',
             'dsp'              => 'Vui lòng chọn dòng sản phẩm',
             'ncc_sp'           => 'Vui lòng chọn nhà cung cấp',
@@ -99,7 +100,10 @@ class SanphamController extends Controller
     public function getDelProduct($id){
         $del_img_sp = Sanpham_ha::join('sanpham as sp', 'sanpham_hinhanh.ma_sp', 'sp.ma_sp')
                                 ->where('sanpham_hinhanh.ma_sp', $id)
-                                ->delete();
+                                ->get();
+        foreach($del_img_sp as $value){
+            File::delete('public/admin/upload/details/'. $value['hinhanh']);
+        }
         $del_size_sp = Sanpham_size::join('sanpham as sp', 'sanpham_size.ma_sp', 'sp.ma_sp')
                                     ->where('sanpham_size.ma_sp', $id)
                                     ->delete();
@@ -107,6 +111,7 @@ class SanphamController extends Controller
                                 ->where('sanpham_mau.ma_sp', $id)
                                 ->delete();
         $del_sp = Sanpham::find($id);
+        File::delete('public/admin/upload/'. $del_sp->hinhanh);
         $del_sp->delete();
         return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Xóa sản phẩm thành công']);
         
