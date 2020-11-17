@@ -164,5 +164,40 @@ class SanphamController extends Controller
         $add_color->save();
         return redirect('/admin/product/product-color-add')->with(['flag' => 'success', 'message' => 'Thêm màu thành công']);
     }
+    // ket thuc backend
+    public function chitiet_sp($id)
+    {
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp')->get();
+        
+        $chitiet_sanpham = DB::table('sanpham as sp')
+            ->join('dongsanpham as dsp','sp.ma_dongsp','=','dsp.ma_dongsp')
+            ->join('danhmuc as dmuc','sp.ma_danhmuc','=','dmuc.ma_danhmuc')
+            ->join('nhacungcap as ncc','sp.ma_ncc','=','ncc.ma_ncc')
+            // ->join('sanpham_hinhanh as sp_ha', 'sp_ha.ma_sp', '=', 'sp.ma_sp')
+            ->where('sp.ma_sp',$id)->get();
+        $get_sub_img = DB::table('sanpham_hinhanh as sp_ha')
+                            ->join('sanpham as sp', 'sp_ha.ma_sp', '=', 'sp.ma_sp')
+                            ->where('sp.ma_sp', $id)
+                            ->select('sp_ha.ma_hinhanh', 'sp_ha.hinhanh', 'sp_ha.trangthai_hinhanh')
+                            ->get();
+       $get_size = DB::table('sanpham_size as size')
+        ->join('sanpham as sp','size.ma_sp', '=','sp.ma_sp')
+        ->where('sp.ma_sp',$id)
+        ->select('size.ma_size','size.size','size.trangthai_size')->get(); 
+        $get_mau = DB::table('sanpham_mau as mau')
+        ->join('sanpham as sp','mau.ma_sp', '=','sp.ma_sp')
+        ->where('sp.ma_sp',$id)
+        ->select('mau.ma_mau','mau.mau','mau.trangthai_mau')->get(); 
+        return view('pages.sanpham.show_chitietsp')
+        ->with('danhmuc', $danhmuc)
+        ->with('chitiet_sanpham', $chitiet_sanpham)
+        ->with('dongsanpham', $dongsanpham)
+        ->with('get_size', $get_size)
+        ->with('get_mau',$get_mau)
+        ->with('get_sub_img', $get_sub_img);
+
+    }
+
 
 }
