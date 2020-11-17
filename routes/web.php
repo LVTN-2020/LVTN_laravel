@@ -86,3 +86,5 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/','HomeController@index');
 //Dong san pham trang chu
 Route::get('/dong-san-pham/{ma_sp}','DongspController@show_dongsp_home');
+//chi tiet san pham
+Route::get('/chi-tiet-san-pham/{ma_sp}','SanphamController@chitiet_sp');

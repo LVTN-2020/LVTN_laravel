@@ -3,6 +3,7 @@
 <div class="features_items"><!--features_items-->
     <h2 class="title text-center">Dòng sản phẩm</h2>
     @foreach($sanpham_id as $item)
+    <a href="{{URL::to('/chi-tiet-san-pham/'.$item->ma_sp)}}">
     <div class="col-sm-4">
         <div class="product-image-wrapper">
             <div class="single-products">
@@ -10,7 +11,7 @@
                         <img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width="200" height="100" alt="" />
                         <h2>{{ number_format($item->gia),',','.' }}vnđ</h2>
                         <p>{{ $item->ten_sp }}</p>
-                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                     </div>
                 </div>
                 {{-- <div class="choose">
@@ -21,6 +22,7 @@
                 </div> --}}
             </div>
         </div>
+    </a>
         @endforeach
 
     
