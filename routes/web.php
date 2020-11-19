@@ -88,3 +88,11 @@ Route::get('/','HomeController@index');
 Route::get('/dong-san-pham/{ma_sp}','DongspController@show_dongsp_home');
 //chi tiet san pham
 Route::get('/chi-tiet-san-pham/{ma_sp}','SanphamController@chitiet_sp');
+//gio hang
+// Route::get('/giohang','GiohangController@gio');
+Route::post('/save-cart','GiohangController@save_cart');
+Route::post('/capnhat-giohang','GiohangController@capnhat_giohang');
+Route::get('/show-cart','GiohangController@show_giohang');
+Route::get('/delete-giohang/{rowId}','GiohangController@delete_giohang');
+
+

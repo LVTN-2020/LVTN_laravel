@@ -5,7 +5,7 @@
     <div class="col-sm-5">
         <div class="view-product">
             <img src="{{URL::to('/public/admin/upload/'.$item->hinhanh)}}" width="100" height="200" alt="" />
-            <h3>ZOOM</h3>
+           
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
             
@@ -46,15 +46,19 @@
             <h2>{{$item->ten_sp}}</h2>
             <p>Check code: {{$item->checkcode}}</p>
             <img src="images/product-details/rating.png" alt="" />
+            <form action="{{URL::to('/save-cart')}}" method="POST">
+                {{csrf_field()}}
             <span>
                 <span>{{number_format($item->gia),',','.' }}vnđ</span>
-                <label>Quantity:</label>
-                <input type="text" value="3" />
-                <button type="button" class="btn btn-fefault cart">
+                <label>Số lượng:</label>
+                <input name="soluong" type="number" min="1" value="1" />
+                <input name="sanphamid_hidden" type="hidden" value="{{$item->ma_sp}}" />
+                <button type="submit" class="btn btn-fefault cart">
                     <i class="fa fa-shopping-cart"></i>
                     Thêm vào giỏ hàng
                 </button>
             </span>
+        </form>
             <p>
                 
                 <b> Chọn size:</b>
