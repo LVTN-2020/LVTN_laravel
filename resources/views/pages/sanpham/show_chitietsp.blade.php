@@ -4,7 +4,7 @@
 <div class="product-details"><!--product-details-->
     <div class="col-sm-5">
         <div class="view-product">
-            <img src="{{URL::to('/public/admin/upload/'.$item->hinhanh)}}" width="100" height="200" alt="" />
+            <img src="{{URL::to('/public/admin/upload/'.$item->hinhanh)}}" style="height: 230px; width: 350px;" alt="" />
            
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -44,38 +44,33 @@
         <div class="product-information"><!--/product-information-->
             <img src="images/product-details/new.jpg" class="newarrival" alt="" />
             <h2>{{$item->ten_sp}}</h2>
-            <p>Check code: {{$item->checkcode}}</p>
-            <img src="images/product-details/rating.png" alt="" />
+            <p>Check code: <strong>{{$item->checkcode}}</strong></p>
+            {{-- <img src="{{asset('public/frontend/images/product-details/rating.png')}}" alt="" /> --}}
             <form action="{{URL::to('/save-cart')}}" method="POST">
                 {{csrf_field()}}
-            <span>
-                <span>{{number_format($item->gia),',','.' }}vnđ</span>
-                <label>Số lượng:</label>
-                <input name="soluong" type="number" min="1" value="1" />
-                <input name="sanphamid_hidden" type="hidden" value="{{$item->ma_sp}}" />
-                <button type="submit" class="btn btn-fefault cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    Thêm vào giỏ hàng
-                </button>
-            </span>
-        </form>
+                <span>
+                    <p style="font-weight: bold; font-size: 35px; color: red;">{{number_format($item->gia),',','.' }}vnđ</p>
+                    <label>Số lượng:</label>
+                    <input name="soluong" type="number" min="1" value="1" />
+                    <input name="sanphamid_hidden" type="hidden" value="{{$item->ma_sp}}" />
+                    <button type="submit" class="btn btn-fefault cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        Thêm vào giỏ hàng
+                    </button>
+                </span>
+            </form>
             <p>
                 
-                <b> Chọn size:</b>
+                <label> Chọn size:</label>
+                
                 @foreach($get_size as $item_size)
-                <div style=" display:inline-block; height:35px;width:50px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;">
+                <div style=" display:inline-block; list-style: none; text-align: center; height:35px;width:50px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;">
                     <h5  class="tick" style="">
                        <li>{{$item_size->size}}</li>
-                       
-                        
-
-                      
-                       
                     </h5>
-                
-                
-            </div>
+                </div>
                 @endforeach
+               
             </p>
             <p><b>Màu:</b>
                 @foreach ($get_mau as $item_mau)

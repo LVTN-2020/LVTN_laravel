@@ -57,7 +57,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+							<a href="{{ URL::to('/') }}"><img src="{{asset('public/frontend/images/home/logo.png')}}" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -163,8 +163,8 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
+									<img src="{{asset('public/frontend/images/home/girl1.jpg')}}" class="girl img-responsive" alt="" />
+									<img src="{{asset('public/frontend/images/home/pricing.png')}}"  class="pricing" alt="" />
 								</div>
 							</div>
 							<div class="item">
@@ -175,8 +175,8 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
+									<img src="{{asset('public/frontend/images/home/girl2.jpg')}}" class="girl img-responsive" alt="" />
+									<img src="{{asset('public/frontend/images/home/pricing.png')}}"  class="pricing" alt="" />
 								</div>
 							</div>
 							
@@ -188,8 +188,8 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png" class="pricing" alt="" />
+									<img src="{{asset('public/frontend/images/home/girl3.jpg')}}" class="girl img-responsive" alt="" />
+									<img src="{{asset('public/frontend/images/home/pricing.png')}}" class="pricing" alt="" />
 								</div>
 							</div>
 							
@@ -229,7 +229,7 @@
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
 									@foreach($dongsanpham as $item)
-									<li><a href="{{URL::to('/dong-san-pham/'.$item->ma_dongsp)}}"> <span class="pull-right">(50)</span>{{$item->ten_dongsp}}</a></li>
+									<li><a href="{{URL::to('/dong-san-pham/'.$item->ma_dongsp)}}"> <span class="pull-right"></span>{{$item->ten_dongsp}}</a></li>
 									@endforeach
 								</ul>
 							</div>
