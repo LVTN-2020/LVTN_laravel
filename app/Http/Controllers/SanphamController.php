@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\File;
 class SanphamController extends Controller
 {
     public function getAddProduct(){
-        $show_dm = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc')->get();
-        $show_dsp = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp')->get();
+        $show_dm = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $show_dsp = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
         $show_ncc = Nhacungcap::select('ma_ncc', 'ten_ncc', 'diachi', 'sdt')->get();
         return view('admin.sanpham.them_sanpham')
                 ->with('show_dm', $show_dm)
@@ -42,15 +42,18 @@ class SanphamController extends Controller
             'dsp'              => 'Vui lòng chọn dòng sản phẩm',
             'ncc_sp'           => 'Vui lòng chọn nhà cung cấp',
         ]);
+        
+        $slug_sp = str_replace(' ', '-', $req->slug_sp);
 
-        $file_name = $req->file('fImages')->getClientOriginalName();
-        $add_sp = new Sanpham();
+        $file_name            = $req->file('fImages')->getClientOriginalName();
+        $add_sp               = new Sanpham();
         $add_sp->ten_sp       = $req->tensp;
         $add_sp->gia          = $req->gia;
         $add_sp->sale         = $req->sale;
         $add_sp->hinhanh      = $file_name;
         $add_sp->mota         = $req->mota;
         $add_sp->checkcode    = $req->checkcode;
+        $add_sp->slug_sanpham = $slug_sp;
         $add_sp->trangthai_sp = $req->trangthai;
         $add_sp->ma_danhmuc   = $req->danhmuc_sp;
         $add_sp->ma_dongsp    = $req->dsp;
@@ -79,6 +82,9 @@ class SanphamController extends Controller
     }
 
     public function postEditProduct(Request $req, $id){
+
+        $slug = str_replace(' ', '-', $req->slug_sp);
+
         $file_name             = $req->file('fImages')->getClientOriginalName();
         $sanpham               = Sanpham::find($id);
         $sanpham->ten_sp       = $req->tensp;
@@ -87,6 +93,7 @@ class SanphamController extends Controller
         $sanpham->hinhanh      = $file_name;
         $sanpham->mota         = $req->mota;
         $sanpham->checkcode    = $req->checkcode;
+        $sanpham->slug_sanpham = $slug;
         $sanpham->trangthai_sp = $req->trangthai;
         $sanpham->ma_danhmuc   = $req->danhmuc_sp;
         $sanpham->ma_dongsp    = $req->dsp;
@@ -167,8 +174,8 @@ class SanphamController extends Controller
     // ket thuc backend
     public function chitiet_sp($id)
     {
-        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc')->get();
-        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp')->get();
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
         
         $chitiet_sanpham = DB::table('sanpham as sp')
             ->join('dongsanpham as dsp','sp.ma_dongsp','=','dsp.ma_dongsp')
@@ -198,6 +205,4 @@ class SanphamController extends Controller
         ->with('get_sub_img', $get_sub_img);
 
     }
-
-
 }

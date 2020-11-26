@@ -25,6 +25,10 @@
             <input class="form-control" name="tendongsp" value="{{ $edit_dsp->ten_dongsp }}" placeholder="Please Enter Category Name" />
         </div>
         <div class="form-group">
+            <label>Slug danh mục</label>
+            <input class="form-control" name="slug_dongsp" value="{{ $edit_dsp->slug_dongsp }}" placeholder="Please Enter Category Name" />
+        </div>
+        <div class="form-group">
             <label>Trạng thái</label>
             <select class="form-control" name="trangthai">
                 @if($edit_dsp->trangthai_dongsp == 0)

@@ -12,6 +12,7 @@
         <tr align="center">
             <th>ID</th>
             <th>Tên danh mục</th>
+            <th>Slug danh mục</th>
             <th>Trạng thái</th>
             <th>Delete</th>
             <th>Edit</th>
@@ -24,6 +25,7 @@
         <tr class="odd gradeX" align="center">
             <td>{{ $stt }}</td>
             <td>{{ $item->ten_danhmuc }}</td>
+            <td>{{ $item->slug_danhmuc }}</td>
             <td>
                 @if($item->trangthai_danhmuc == 0)
                     Ẩn 

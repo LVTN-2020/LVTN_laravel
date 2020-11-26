@@ -16,6 +16,8 @@
             <th>Sale</th>
             <th>Hình ảnh</th>
             <th>Mô tả</th>
+            <th>Check code</th>
+            <th>Slug</th>
             <th>Trạng thái</th>
             <th>Delete</th>
             <th>Edit</th>
@@ -32,6 +34,8 @@
             <td>{{ number_format($item->sale),0,",","." }}vnđ</td>
             <td><img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width=200 height=100></td>
             <td>{{ $item->mota }}</td>
+            <td>{{ $item->checkcode }}</td>
+            <td>{{ $item->slug_sanpham }}</td>
             <td>
                 @if($item->trangthai_sp == 0)
                     Ẩn

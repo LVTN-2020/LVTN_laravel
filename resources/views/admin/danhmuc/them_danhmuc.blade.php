@@ -25,6 +25,10 @@
             <input class="form-control" name="tendanhmuc" placeholder="Please Enter Category Name" />
         </div>
         <div class="form-group">
+            <label>Slug danh mục</label>
+            <input class="form-control" name="slug_cate" placeholder="Please Enter Category Slug" />
+        </div>
+        <div class="form-group">
             <label>Trạng thái</label>
             <select class="form-control" name="trangthai">
                 <option value="0">Ẩn</option>

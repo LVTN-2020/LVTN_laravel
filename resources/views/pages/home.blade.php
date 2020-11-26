@@ -22,7 +22,7 @@
                 </div> --}}
             </div>
         </div>
-        @endforeach
     </a>
+    @endforeach
 </div><!--features_items-->
 @endsection

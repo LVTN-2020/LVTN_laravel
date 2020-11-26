@@ -45,6 +45,10 @@
             <input class="form-control" name="checkcode" value="{{ $edit_sp->checkcode }}" />
         </div>
         <div class="form-group">
+            <label>Slug</label>
+            <input class="form-control" name="slug_sp" value="{{ $edit_sp->slug_sanpham }}" />
+        </div>
+        <div class="form-group">
             <label>Trạng thái</label>
             <select class="form-control" name="trangthai">
                 @if($edit_sp->trangthai_sp == 0)

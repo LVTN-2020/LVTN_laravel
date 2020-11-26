@@ -218,7 +218,7 @@
 							@foreach($danhmuc as $item)
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title"><a href="{{URL::to('/danhmucsanpham'.$item->ma_danhmuc)}}">{{$item->ten_danhmuc}}</a></h4>
+									<h4 class="panel-title"><a href="{{URL::to('/danh-muc/'.$item->ma_danhmuc)}}">{{$item->ten_danhmuc}}</a></h4>
 								</div>
 							</div>
 						@endforeach

@@ -10,6 +10,6 @@ class Sanpham extends Model
     use HasFactory;
 
     protected $table = 'sanpham';
-    protected $fillable = ['checkcode', 'ten_sp', 'gia', 'sale', 'hinhanh', 'mota' ,'trangthai_sp' ,'ma_danhmuc', 'ma_dongsp', 'ma_ncc'];
+    protected $fillable = ['checkcode', 'ten_sp', 'gia', 'sale', 'hinhanh', 'mota' ,'trangthai_sp', 'slug_sanpham' ,'ma_danhmuc', 'ma_dongsp', 'ma_ncc'];
     protected $primaryKey = 'ma_sp';
 }

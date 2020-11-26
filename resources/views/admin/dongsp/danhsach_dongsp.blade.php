@@ -12,6 +12,7 @@
         <tr align="center">
             <th>ID</th>
             <th>Tên dòng sản phẩm</th>
+            <th>Slug</th>
             <th>Trạng thái</th>
             <th>Delete</th>
             <th>Edit</th>
@@ -24,6 +25,7 @@
         <tr class="odd gradeX" align="center">
             <td>{{ $stt }}</td>
             <td>{{ $item->ten_dongsp }}</td>
+            <td>{{ $item->slug_dongsp }}</td>
             <td>
                 @if($item->trangthai_dongsp == 0)
                     Ẩn 
