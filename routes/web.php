@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', 'AdminController@index');
 Route::get('trang-chu', 'HomeController@index');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::group(['prefix' => 'cate'], function () {
         //-----Thêm------
         Route::get('/cate-add', 'DanhmucController@getAddCate');
@@ -81,7 +81,23 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/product-color-add', 'SanphamController@getAddProductColor');
         Route::post('/product-color-add', 'SanphamController@postAddProductColor');
     });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/user-add','UserController@getAdduser');
+        Route::post('/user-add','UserController@postAdduser');
+        Route::get('/user-list','UserController@getListuser');
+        Route::get('/user-edit/{id}','UserController@getEdituser');
+        Route::post('/user-update/{id}','UserController@postEdituser');
+        Route::get('/user-delete/{id}','UserController@getDeleteuser');
+    });
 });
+Route::get('/login-admin', 'AdminController@getLogin');
+Route::post('/login-admin', 'AdminController@postLogin');
+Route::get('/logout-admin', 'AdminController@getLogout');
+
+
+
+
 //frontend
 Route::get('/','HomeController@index');
 //Dong san pham trang chu
