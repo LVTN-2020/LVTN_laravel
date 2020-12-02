@@ -45,40 +45,61 @@
             <img src="images/product-details/new.jpg" class="newarrival" alt="" />
             <h2>{{$item->ten_sp}}</h2>
             <p>Check code: <strong>{{$item->checkcode}}</strong></p>
+            <p>Dòng sản phẩm:<strong>{{$item->ten_dongsp}}</strong></p>
             {{-- <img src="{{asset('public/frontend/images/product-details/rating.png')}}" alt="" /> --}}
             <form action="{{URL::to('/save-cart')}}" method="POST">
                 {{csrf_field()}}
-                <span>
+                <span class="quantity">
                     <p style="font-weight: bold; font-size: 35px; color: red;">{{number_format($item->gia),',','.' }}vnđ</p>
                     <label>Số lượng:</label>
-                    <input name="soluong" type="number" min="1" value="1" />
+                    <input class="input-quantity" name="soluong" type="number" min="1" value="1" />
                     <input name="sanphamid_hidden" type="hidden" value="{{$item->ma_sp}}" />
-                    <button type="submit" class="btn btn-fefault cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        Thêm vào giỏ hàng
-                    </button>
                 </span>
+                <p>      
+                    <div class="product-size">
+                        <label> Chọn size:</label> 
+                        {{-- <ul class="ulsize">
+                            @foreach($get_size as $item_size)
+                            <li>
+                                <input type="hidden" name="size_id" value="{{$item_size->size}}">{{$item_size->size}}
+                            </li>
+                            @endforeach
+                        </ul> --}}
+                        <select name="size_id" id="size" class="form-group">
+                            @foreach($get_size as $item_size)
+                                <option value="{{$item_size->size}}">{{$item_size->size}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <?php //echo '<pre>' ?>
+                    <?php //print_r($get_size) ?>
+                    <?php //echo '</pre>' ?>
+                </p>
+                <p>
+                    <div class="product-color">
+                        <label>Màu:</label>
+                        {{-- <ul class="ul-color">
+                            @foreach ($get_mau as $item_mau)
+                            <li>{{$item_mau->mau}}</li>
+                            <input type="hidden" name="color_id" value="{{$item_mau->ma_mau}}">
+                            @endforeach
+                        </ul> --}}
+                        <select name="color_id" id="color" class="form-group">
+                            @foreach($get_mau as $item_mau)
+                                <option value="{{$item_mau->mau}}">{{$item_mau->mau}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <?php //echo '<pre>' ?>
+                    <?php //print_r($get_mau) ?>
+                    <?php //echo '</pre>' ?>
+                </p>
+                <button type="submit" class="btn btn-fefault cart" style="margin-left:0px; margin-top:20px;">
+                    <i class="fa fa-shopping-cart"></i>
+                    Thêm vào giỏ hàng
+                </button>
             </form>
-            <p>
-                
-                <label> Chọn size:</label>
-                
-                @foreach($get_size as $item_size)
-                <div style=" display:inline-block; list-style: none; text-align: center; height:35px;width:50px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;">
-                    <h5  class="tick" style="">
-                       <li>{{$item_size->size}}</li>
-                    </h5>
-                </div>
-                @endforeach
-               
-            </p>
-            <p><b>Màu:</b>
-                @foreach ($get_mau as $item_mau)
-                    {{$item_mau->mau}}
-                @endforeach
-            </p>
-            <p><b>Dòng sản phẩm:</b> {{$item->ten_dongsp}}</p>
-            <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+            <a href=""><img src="{{asset('public/frontend/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
         </div><!--/product-information-->
     </div>
 </div><!--/product-details-->
@@ -301,3 +322,33 @@
     </div>
 </div><!--/recommended_items-->
 @endsection
+
+{{-- @section('script')
+    <script>
+        $('ul.ulsize li').click(function(){
+            var id_size = $('input[type=hidden]', this).val();
+            console.log(id_size);
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method: 'POST',
+                url : "show-cart",
+                data: {
+                    "size_id": id_size
+                },
+                success: function(data){
+                    $('ul.ulsize li input').html(data);
+                    console.log('ok');
+                }
+                // error: function(data){
+                //     console.log(data);
+                // }
+
+            });
+        })
+    </script>
+@endsection --}}

@@ -22,11 +22,9 @@ class DanhmucController extends Controller
             'slug_cate.required' => 'Vui lòng điền tên bi danh danh mục',
         ]);
 
-        $slug = str_replace(' ', '-', $req->slug_cate);
-
         $danhmuc = new Danhmuc;
         $danhmuc->ten_danhmuc = $req->tendanhmuc;
-        $danhmuc->slug_danhmuc = $slug;
+        $danhmuc->slug_danhmuc = $req->slug_cate;
         $danhmuc->trangthai_danhmuc = $req->trangthai;
         if($danhmuc->trangthai_danhmuc == 0){
             $danhmuc->save(['trangthai_danhmuc' => 0]);
@@ -61,11 +59,9 @@ class DanhmucController extends Controller
             'slug_cate.required' => 'Vui lòng điền tên bi danh danh mục',
         ]);
 
-        $slug = str_replace(' ', '-', $req->slug_cate);
-
         $dmuc = Danhmuc::findOrFail($id);
         $dmuc->ten_danhmuc = $req->tendanhmuc;
-        $dmuc->slug_danhmuc = $slug;
+        $dmuc->slug_danhmuc = $req->slug_cate;
         $dmuc->trangthai_danhmuc = $req->trangthai;
         if($dmuc->trangthai_danhmuc == 0){
             $dmuc->save(['trangthai_danhmuc' => 0]);

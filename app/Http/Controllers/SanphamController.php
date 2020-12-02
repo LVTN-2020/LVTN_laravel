@@ -42,8 +42,6 @@ class SanphamController extends Controller
             'dsp'              => 'Vui lòng chọn dòng sản phẩm',
             'ncc_sp'           => 'Vui lòng chọn nhà cung cấp',
         ]);
-        
-        $slug_sp = str_replace(' ', '-', $req->slug_sp);
 
         $file_name            = $req->file('fImages')->getClientOriginalName();
         $add_sp               = new Sanpham();
@@ -53,7 +51,7 @@ class SanphamController extends Controller
         $add_sp->hinhanh      = $file_name;
         $add_sp->mota         = $req->mota;
         $add_sp->checkcode    = $req->checkcode;
-        $add_sp->slug_sanpham = $slug_sp;
+        $add_sp->slug_sanpham = $req->slug_sp;
         $add_sp->trangthai_sp = $req->trangthai;
         $add_sp->ma_danhmuc   = $req->danhmuc_sp;
         $add_sp->ma_dongsp    = $req->dsp;
@@ -61,7 +59,7 @@ class SanphamController extends Controller
 
         $req->file('fImages')->move('public/admin/upload/', $file_name);
         $add_sp->save();
-        return redirect('/admin/product/product-add')->with(['flag' => 'success', 'message' => 'Thêm sản phẩm thành công']);
+        return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Thêm sản phẩm thành công']);
     }
 
     public function getListProduct(){
@@ -83,8 +81,6 @@ class SanphamController extends Controller
 
     public function postEditProduct(Request $req, $id){
 
-        $slug = str_replace(' ', '-', $req->slug_sp);
-
         $file_name             = $req->file('fImages')->getClientOriginalName();
         $sanpham               = Sanpham::find($id);
         $sanpham->ten_sp       = $req->tensp;
@@ -93,7 +89,7 @@ class SanphamController extends Controller
         $sanpham->hinhanh      = $file_name;
         $sanpham->mota         = $req->mota;
         $sanpham->checkcode    = $req->checkcode;
-        $sanpham->slug_sanpham = $slug;
+        $sanpham->slug_sanpham = $req->slug_sp;
         $sanpham->trangthai_sp = $req->trangthai;
         $sanpham->ma_danhmuc   = $req->danhmuc_sp;
         $sanpham->ma_dongsp    = $req->dsp;
@@ -139,7 +135,7 @@ class SanphamController extends Controller
         $req->file('fImagesDetail')->move('public/admin/upload/details/', $file_name);
 
         $add_img->save();
-        return redirect('/admin/product/product-image-add')->with(['flag' => 'success', 'message' => 'Thêm hình ảnh thành công']);
+        return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Thêm hình ảnh thành công']);
     }
 
     //Thêm size
@@ -154,7 +150,7 @@ class SanphamController extends Controller
         $add_size->ma_sp          = $req->ma_sp;
 
         $add_size->save();
-        return redirect('/admin/product/product-size-add')->with(['flag' => 'success', 'message' => 'Thêm size thành công']);
+        return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Thêm size thành công']);
     }
 
     //Thêm màu
@@ -169,40 +165,6 @@ class SanphamController extends Controller
         $add_color->ma_sp          = $req->ma_sp;
 
         $add_color->save();
-        return redirect('/admin/product/product-color-add')->with(['flag' => 'success', 'message' => 'Thêm màu thành công']);
-    }
-    // ket thuc backend
-    public function chitiet_sp($id)
-    {
-        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
-        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
-        
-        $chitiet_sanpham = DB::table('sanpham as sp')
-            ->join('dongsanpham as dsp','sp.ma_dongsp','=','dsp.ma_dongsp')
-            ->join('danhmuc as dmuc','sp.ma_danhmuc','=','dmuc.ma_danhmuc')
-            ->join('nhacungcap as ncc','sp.ma_ncc','=','ncc.ma_ncc')
-            // ->join('sanpham_hinhanh as sp_ha', 'sp_ha.ma_sp', '=', 'sp.ma_sp')
-            ->where('sp.ma_sp',$id)->get();
-        $get_sub_img = DB::table('sanpham_hinhanh as sp_ha')
-                            ->join('sanpham as sp', 'sp_ha.ma_sp', '=', 'sp.ma_sp')
-                            ->where('sp.ma_sp', $id)
-                            ->select('sp_ha.ma_hinhanh', 'sp_ha.hinhanh', 'sp_ha.trangthai_hinhanh')
-                            ->get();
-       $get_size = DB::table('sanpham_size as size')
-        ->join('sanpham as sp','size.ma_sp', '=','sp.ma_sp')
-        ->where('sp.ma_sp',$id)
-        ->select('size.ma_size','size.size','size.trangthai_size')->get(); 
-        $get_mau = DB::table('sanpham_mau as mau')
-        ->join('sanpham as sp','mau.ma_sp', '=','sp.ma_sp')
-        ->where('sp.ma_sp',$id)
-        ->select('mau.ma_mau','mau.mau','mau.trangthai_mau')->get(); 
-        return view('pages.sanpham.show_chitietsp')
-        ->with('danhmuc', $danhmuc)
-        ->with('chitiet_sanpham', $chitiet_sanpham)
-        ->with('dongsanpham', $dongsanpham)
-        ->with('get_size', $get_size)
-        ->with('get_mau',$get_mau)
-        ->with('get_sub_img', $get_sub_img);
-
+        return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Thêm màu thành công']);
     }
 }

@@ -3,7 +3,7 @@
 <div class="features_items"><!--features_items-->
     <h2 class="title text-center">Sản phẩm mới nhất</h2>
     @foreach($sanpham as $item)
-    <a href="{{URL::to('/chi-tiet-san-pham/'.$item->ma_sp)}}">
+    <a href="{{URL::to('/chi-tiet-san-pham/'.$item->slug_sanpham.'.html')}}">
     <div class="col-sm-4">
         <div class="product-image-wrapper">
             <div class="single-products">

@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+	<meta name="author" content="">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Shop bán giày</title>
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -21,7 +22,66 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('public/frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('public/frontend/images/ico/apple-touch-icon-114-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('public/frontend/images/ico/apple-touch-icon-72-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" href="{{asset('public/frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
+	<link rel="apple-touch-icon-precomposed" href="{{asset('public/frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
+	
+	<style>
+		.product-size{
+			height:100px;
+			width:400px;
+			background: #f4f4f4;
+		}
+		.product-size ul.ulsize li, .product-color ul.ul-color li{
+			border: 1px solid #dadada;
+		}
+		ul.ulsize, ul.ul-color{
+			padding-left: 10px;
+		}
+		ul.ulsize li{
+			float: left;
+			margin-right: 5px;
+			text-align: center;
+			width: 40px;
+			height: 40px;
+			cursor: pointer;
+			background: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+		ul.ulsize li.tick{
+			background: url(../public/frontend/images/rsz_1checked.png) right bottom no-repeat #fff;
+			border-color: red;
+		}
+		ul.ulsize li:hover{
+			border-color: red;
+		}
+		.product-color{
+			width: 400px;
+			height: 50px;
+			margin-top: 20px;
+		}
+		ul.ul-color li{
+			float: left;
+			margin-right: 10px;
+			margin-top: -35px;
+    		margin-left: 30px;
+			text-align: center;
+			width: 70px;
+			height: 40px;
+			cursor: pointer;
+			background: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+		ul.ul-color li a{
+			color: #262626;
+			text-decoration: none;
+		}
+	</style>
+
 </head><!--/head-->
 
 <body>
@@ -229,7 +289,7 @@
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
 									@foreach($dongsanpham as $item)
-									<li><a href="{{URL::to('/dong-san-pham/'.$item->ma_dongsp)}}"> <span class="pull-right"></span>{{$item->ten_dongsp}}</a></li>
+									<li><a href="{{URL::to('/dong-san-pham/'.$item->slug_dongsp.'.html')}}"> <span class="pull-right"></span>{{$item->ten_dongsp}}</a></li>
 									@endforeach
 								</ul>
 							</div>
@@ -472,6 +532,16 @@
 	<script src="{{asset('public/frontend/js/jquery.scrollUp.min.js')}}"></script>
 	<script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+	<script src="{{asset('public/frontend/js/main.js')}}"></script>
+	
+	{{-- <script>
+		$(document).on('click', 'ul li', function(){
+			var tick = $(this).addClass('tick').siblings().removeClass('tick');
+			// console.log(tick);
+			var id_size = $('.tick input[name="size_id"]', this).val();
+			console.log(id_size);
+		})
+	</script> --}}
+	@yield('script')
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -45,7 +46,8 @@ class UserController extends Controller
     }
 
     public function getListuser(){
-        $get_user = User::all();
+        $get_user = User::where('level', '<', 3)->get();
+        
         return view('admin.user.danhsach_user')->with('get_user', $get_user);
     }
 

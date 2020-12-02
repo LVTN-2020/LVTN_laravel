@@ -26,7 +26,7 @@
                 <tbody>
                     @foreach ($content as $item_content)
                         
-                 
+                    <?php //print_r($content) ?>
                     <tr>
                         <td class="cart_product">
                             <a href=""><img src="{{URL::to('public/admin/upload/'.$item_content->options->image)}}" width="100" height="100" alt=""></a>

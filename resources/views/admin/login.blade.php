@@ -1,68 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Khóa Học Lập Trình Laravel Framework 5.x Tại Khoa Phạm">
-    <meta name="author" content="">
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
 
-    <title>Admin - Khoa Phạm</title>
+    <!-- Title Page-->
+    <title>Login</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="{{('public/admin/bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Fontfaces CSS-->
+    <link href="{{asset('public/admin/css/font-face.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/font-awesome-5/css/fontawesome-all.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
 
-    <!-- MetisMenu CSS -->
-    <link href="{{('public/admin/bower_components/metisMenu/dist/metisMenu.min.css')}}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link href="{{asset('public/admin/vendor/bootstrap-4.1/bootstrap.min.css')}}" rel="stylesheet" media="all">
 
-    <!-- Custom CSS -->
-    <link href="{{('public/admin/dist/css/sb-admin-2.css')}}" rel="stylesheet">
+    <!-- Vendor CSS-->
+    <link href="{{asset('public/admin/vendor/animsition/animsition.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/wow/animate.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/css-hamburgers/hamburgers.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/slick/slick.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/select2/select2.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('public/admin/vendor/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" media="all">
 
-    <!-- Custom Fonts -->
-    <link href="{{('public/admin/bower_components/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <!-- Main CSS-->
+    <link href="{{asset('public/admin/css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
 
-<body>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form" action="{{URL::to('/login-admin')}}" method="POST">
-                            @csrf
-                            <fieldset>
+<body class="animsition">
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    @if(count($errors) > 0)
+                        <div class="alert alert-danger">
+                            @foreach($errors->all() as $err)
+                                <li>{{ $err }}</li>
+                            @endforeach
+                        </div>
+                    @endif
+                    
+                    @if(session('message'))
+                        <div class="alert alert-{{session('flag')}}">
+                            {{session('message')}}
+                        </div>
+                    @endif
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="#">
+                                <img src="{{asset('public/admin/images/icon/logo.png')}}" alt="CoolAdmin">
+                            </a>
+                        </div>
+                        <div class="login-form">
+                            <form action="{{URL::to('/login-admin')}}" method="post">
+                                @csrf
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" autofocus>
+                                    <label>Email Address</label>
+                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <label>Password</label>
+                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
                                 </div>
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                            </fieldset>
-                        </form>
+                                <div class="login-checkbox">
+                                    <label>
+                                        {{-- <input type="checkbox" name="remember">Remember Me --}}
+                                    </label>
+                                    <label>
+                                        <a href="#">Forgotten Password?</a>
+                                    </label>
+                                </div>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- jQuery -->
-    <script src="{{('public/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Jquery JS-->
+    <script src="{{asset('public/admin/vendor/jquery-3.2.1.min.js')}}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{{asset('public/admin/vendor/bootstrap-4.1/popper.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+    <!-- Vendor JS       -->
+    <script src="{{asset('public/admin/vendor/slick/slick.min.js')}}">
+    </script>
+    <script src="{{asset('public/admin/vendor/wow/wow.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/animsition/animsition.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}">
+    </script>
+    <script src="{{asset('public/admin/vendor/counter-up/jquery.waypoints.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/counter-up/jquery.counterup.min.js')}}">
+    </script>
+    <script src="{{asset('public/admin/vendor/circle-progress/circle-progress.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/chartjs/Chart.bundle.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendor/select2/select2.min.js')}}">
+    </script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{('public/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{('public/admin/bower_components/metisMenu/dist/metisMenu.min.js')}}"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="{{('public/admin/dist/js/sb-admin-2.js')}}"></script>
+    <!-- Main JS-->
+    <script src="{{asset('public/admin/js/main.js')}}"></script>
+    <script>
+        $("div.alert").delay(3000).slideUp();
+    </script>
 
 </body>
 
 </html>
+<!-- end document-->

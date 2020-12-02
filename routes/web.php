@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/admin', 'AdminController@index');
+Route::get('/admin', 'AdminController@index')->middleware('adminLogin');
 Route::get('trang-chu', 'HomeController@index');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
+Route::group(['middleware' => 'adminLogin', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'cate'], function () {
         //-----Thêm------
         Route::get('/cate-add', 'DanhmucController@getAddCate');
@@ -91,7 +91,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
         Route::get('/user-delete/{id}','UserController@getDeleteuser');
     });
 });
-Route::get('/login-admin', 'AdminController@getLogin');
+Route::get('/login-admin', 'AdminController@getLogin')->middleware('checkUser');
 Route::post('/login-admin', 'AdminController@postLogin');
 Route::get('/logout-admin', 'AdminController@getLogout');
 
@@ -101,10 +101,11 @@ Route::get('/logout-admin', 'AdminController@getLogout');
 //frontend
 Route::get('/','HomeController@index');
 //Dong san pham trang chu
-Route::get('/dong-san-pham/{ma_sp}','DongspController@show_dongsp_home');
-// Route::get('/dong-san-pham/{slug}','DongspController@show_dongsp_home');
+// Route::get('/dong-san-pham/{ma_sp}','HomeController@show_dongsp_home');
+Route::get('/dong-san-pham/{slug}.html','HomeController@show_dongsp_home');
 //chi tiet san pham
-Route::get('/chi-tiet-san-pham/{ma_sp}','SanphamController@chitiet_sp');
+// Route::get('/chi-tiet-san-pham/{ma_sp}','HomeController@chitiet_sp');
+Route::get('/chi-tiet-san-pham/{slug_sp}.html','HomeController@chitiet_sp');
 //gio hang
 // Route::get('/giohang','GiohangController@gio');
 Route::post('/save-cart','GiohangController@save_cart');

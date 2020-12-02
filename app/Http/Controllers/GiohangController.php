@@ -18,24 +18,29 @@ class GiohangController extends Controller
 {
     public function save_cart(Request $request){
        
-        $sanphamid = $request->sanphamid_hidden;
-        $quantity = $request->soluong;
+        $sanphamid    = $request->sanphamid_hidden;
+        $quantity     = $request->soluong;
+        $size         = $request->input('size_id');
+        $color        = $request->color_id;
         $sanpham_info = DB::table('sanpham')->where('ma_sp',$sanphamid)->first();
-        // $sanpham_info = Sanpham::where('ma_sp',$sanphamid)->first();
-        $data['id'] = $sanpham_info->ma_sp;
-        $data['qty'] = $quantity;
-        $data['name'] = $sanpham_info->ten_sp;
-        $data['price'] = $sanpham_info->gia;
-        $data['weight'] = $sanpham_info->gia;
+        $data['id']               = $sanpham_info->ma_sp;
+        $data['qty']              = $quantity;
+        $data['name']             = $sanpham_info->ten_sp;
+        $data['price']            = $sanpham_info->gia;
+        $data['weight']           = $sanpham_info->gia;
         $data['options']['image'] = $sanpham_info->hinhanh;
+        $data['options']['size']  = $size;
+        $data['options']['color'] = $color;
+        
         Cart::add($data);
         
+        // return $size;
         return redirect('/show-cart'); 
        
     }
     public function show_giohang(){
-        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc')->get();
-        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp')->get();
+        $danhmuc     = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
         return view('pages.giohang.show_giohang')
         ->with('danhmuc', $danhmuc)
         ->with('dongsanpham', $dongsanpham);

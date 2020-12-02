@@ -23,12 +23,12 @@ class UserSeeder extends Seeder
 {
     public function run(){
         DB::table('users')->insert([
-            'name'     => 'Thái Hưng',
+            'name'     => 'admin',
             'address'  => '252 Cao Lỗ, p4, Quận 8',
             'phone'    => '0764641531',
-            'email'    => 'hp1997tg@gmail.com',
-            'password' => Hash::make(123456),
-            'level'    => 2
+            'email'    => 'admin@gmail.com',
+            'password' => Hash::make(123456789),
+            'level'    => 3
         ]);
     }
 }

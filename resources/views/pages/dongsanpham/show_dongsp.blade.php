@@ -2,8 +2,8 @@
 @section('content')
 <div class="features_items"><!--features_items-->
     <h2 class="title text-center">Dòng sản phẩm</h2>
-    @foreach($sanpham_id as $item)
-    <a href="{{URL::to('/chi-tiet-san-pham/'.$item->ma_sp)}}">
+    @foreach($sanpham_slug as $item)
+    <a href="{{URL::to('/chi-tiet-san-pham/'.$item->slug_sanpham.'.html')}}">
     <div class="col-sm-4">
         <div class="product-image-wrapper">
             <div class="single-products">
