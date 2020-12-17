@@ -2,7 +2,7 @@
 @section('content')
 <div class="features_items"><!--features_items-->
     <h2 class="title text-center">Kết quả tìm kiếm</h2>
-    @foreach($search as $item)
+    {{-- @foreach($search as $item) --}}
     <a href="{{URL::to('/chi-tiet-san-pham/'.$item->slug_sanpham.'.html')}}">
         <div class="col-sm-4">
             <div class="product-image-wrapper">
@@ -23,5 +23,5 @@
             </div>
         </div>
     </a>
-    @endforeach
+    {{-- @endforeach --}}
 @endsection

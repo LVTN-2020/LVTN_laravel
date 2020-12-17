@@ -115,3 +115,4 @@ Route::get('/delete-giohang/{rowId}','GiohangController@delete_giohang');
 
 //Tim kiem
 Route::post('/tim-kiem', 'HomeController@live_search');
+Route::post('/tim-kiem-ajax', 'HomeController@live_search_ajax');

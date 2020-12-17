@@ -195,13 +195,13 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<form action="{{URL::to('/tim-kiem')}}" method="POST">
-                            {{csrf_field()}}
+						{{-- <form action="{{URL::to('/tim-kiem-ajax')}}" method="GET"> --}}
+                            {{-- {{csrf_field()}} --}}
 							<div class="search_box pull-right">
-								<input type="text" name="search" id="search" placeholder="Search Anything"/>
-								<input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
+								<input type="text" name="search" id="search" class="form-control" placeholder="Search Anything"/>
+								{{-- <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm"> --}}
 							</div>
-                        </form>
+                        {{-- </form> --}}
 					</div>
 				</div>
 			</div>
@@ -309,7 +309,7 @@
 						</div><!--/price-range-->
 						
 						<div class="shipping text-center"><!--shipping-->
-							<img src="images/home/shipping.jpg" alt="" />
+							<img src="{{asset('public/frontend/images/home/shipping.jpg')}}" alt="" />
 						</div><!--/shipping-->
 					
 					</div>
@@ -387,7 +387,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe1.png" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe1.png')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -402,7 +402,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe2.png" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe2.png')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -417,7 +417,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe3.png" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe3.png')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -432,7 +432,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe4.png" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe4.png')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -445,7 +445,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="address">
-							<img src="images/home/map.png" alt="" />
+							<img src="{{asset('public/frontend/images/home/map.png')}}" alt="" />
 							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
 						</div>
 					</div>
