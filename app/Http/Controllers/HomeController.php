@@ -79,15 +79,37 @@ class HomeController extends Controller
 
     }
 
-    public function live_search(Request $req){
-        $keyword = $req->search;
-        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
-        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
-        $search = DB::table('sanpham')->where('ten_sp', 'LIKE', '%'.$keyword.'%')->get();
-        return view('pages.sanpham.timkiem')
-                ->with('danhmuc', $danhmuc)
-                ->with('dongsanpham', $dongsanpham)
-                ->with('search', $search);
-    }
+    // public function live_search(Request $req){
+    //     $keyword = $req->search;
+    //     $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+    //     $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+    //     $search = DB::table('sanpham')->where('ten_sp', 'LIKE', '%'.$keyword.'%')->get();
+    //     return view('pages.sanpham.timkiem')
+    //             ->with('danhmuc', $danhmuc)
+    //             ->with('dongsanpham', $dongsanpham)
+    //             ->with('search', $search);
+    // }
 
+    public function live_search_ajax(Request $req){
+        $valueSearch = $req->search;
+        if($req->ajax()){
+            $output = '';
+            $product = DB::table('sanpham')->where('ten_sp', 'LIKE', '%'.$valueSearch.'%')->get();
+            
+            // $('.search_ajax').append(
+            //     '<a href="{{URL::to('/chi-tiet-san-pham/' + 'value.slug_sanpham' + '.html')}}">' + 
+            //         '<div class="col-sm-4">' + 
+            //             '<div class="single-products">' + 
+            //                 '<div class="productinfo text-center">' + 
+            //                     '<img src="{{URL::to('public/admin/upload/' + value.hinhanh)}}" width="200" height="100" alt="" />' +
+            //                     '<h2>'+ value.gia + vnđ +'</h2>' +
+            //                     '<p>' + value.ten_sp + '</p>' +
+            //                 '</div>' +
+            //             '</div>' +
+            //         '</div>' +
+            //     '</a>'
+            // );
+            return json_encode($product);
+        }
+    }
 }
