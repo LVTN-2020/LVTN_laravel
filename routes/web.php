@@ -113,4 +113,5 @@ Route::post('/capnhat-giohang','GiohangController@capnhat_giohang');
 Route::get('/show-cart','GiohangController@show_giohang');
 Route::get('/delete-giohang/{rowId}','GiohangController@delete_giohang');
 
-
+//Tim kiem
+Route::post('/tim-kiem', 'HomeController@live_search');
