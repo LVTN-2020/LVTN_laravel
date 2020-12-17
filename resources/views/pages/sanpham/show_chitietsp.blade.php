@@ -60,7 +60,7 @@
                         <label> Chọn size:</label> 
                         {{-- <ul class="ulsize">
                             @foreach($get_size as $item_size)
-                            <li>
+                            <li class="size" value="{{$item_size->size}}">{{$item_size->size}}
                                 <input type="hidden" name="size_id" value="{{$item_size->size}}">{{$item_size->size}}
                             </li>
                             @endforeach
