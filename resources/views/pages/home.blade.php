@@ -1,8 +1,7 @@
 @extends('welcome')
 @section('content')
-<div class="features_items"><!--features_items-->
+<div class="features_items search_ajax"><!--features_items-->
     <h2 class="title text-center">Sản phẩm mới nhất</h2>
-    <div class="search_ajax">
         @foreach($sanpham as $item)
         <a href="{{URL::to('/chi-tiet-san-pham/'.$item->slug_sanpham.'.html')}}">
         <div class="col-sm-4">
@@ -32,6 +31,10 @@
 @section('script')
 <script>
     $('#search').on('keyup', function(){
+        var numVND = new Intl.NumberFormat("vi-VN",{
+            style:"currency",
+            currency: "VND"
+        });
         $valueSearch = $(this).val();
         // console.log($valueSearch);
         $.ajax({
@@ -46,14 +49,17 @@
                 $('.search_ajax').html('');
                 $.each(data, function(index, value){
                     $('.search_ajax').append(
-                            '<div class="col-sm-4">' + 
-                                '<div class="single-products">' + 
-                                    '<div class="productinfo text-center">' + 
-                                        '<h2>'+ value.gia +'</h2>' +
-                                        '<p>' + value.ten_sp + '</p>' +
+                            '<a href="{{ URL::to('chi-tiet-san-pham') }}/'+value.slug_sanpham+'.html">' +
+                                '<div class="col-sm-4">' + 
+                                    '<div class="single-products">' + 
+                                        '<div class="productinfo text-center">' + 
+                                            '<img src="{{ URL::to('public/admin/upload/') }}/'+value.hinhanh+' "width="200" height="100" alt="Image" >' +
+                                            '<h2>'+ numVND.format(value.gia) +'</h2>' +
+                                            '<p>' + value.ten_sp + '</p>' +
+                                        '</div>' +
                                     '</div>' +
                                 '</div>' +
-                            '</div>'
+                            '</a>'
                     );
                 })
                 console.log(data);
