@@ -110,8 +110,28 @@ Route::get('/chi-tiet-san-pham/{slug_sp}.html','HomeController@chitiet_sp');
 // Route::get('/giohang','GiohangController@gio');
 Route::post('/save-cart','GiohangController@save_cart');
 Route::post('/capnhat-giohang','GiohangController@capnhat_giohang');
+// Route::post('/update-giohang','GiohangController@update_giohang');
 Route::get('/show-cart','GiohangController@show_giohang');
+Route::get('/gio-hang','GiohangController@gio_hang');
 Route::get('/delete-giohang/{rowId}','GiohangController@delete_giohang');
+
+Route::post('/add-cart-ajax','GiohangController@add_cart_ajax');
+  
+
+//tim kiem
+Route::post('tim-kiem', 'HomeController@timkiem');
+
+//Dang nhap + thanh toan + dang ky
+Route::get('/get-dangnhap','ThanhtoanController@get_Dangnhap');
+Route::post('/get-dangnhap','ThanhtoanController@post_Dangnhap');
+Route::post('/order-place','ThanhtoanController@order_place');
+Route::get('/logout-user','ThanhtoanController@getLogout');
+Route::get('/get-dangky','ThanhtoanController@add_customer');
+Route::post('/get-dangky','ThanhtoanController@post_add_customer');
+Route::get('/thanh-toan','ThanhtoanController@thanh_toan');
+Route::post('/save-thanhtoan','ThanhtoanController@save_thanhtoan');
+Route::get('/payment','ThanhtoanController@payment');
+Route::post('/cap-nhap-thanh-toan','ThanhtoanController@postPayment');
 
 //Tim kiem
 Route::post('/tim-kiem', 'HomeController@live_search');

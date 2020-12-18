@@ -147,11 +147,27 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="./blog-single.html"><i class="fa fa-user"></i> Thông tin nhóm 3</a></li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li>
+									@if(!Auth::check())
+									<a href="{{URL::to('/get-dangnhap')}}">
+										<i class="fa fa-user"></i>Tài khoản
+									</a>
+									@else
+									<a href="{{URL::to('/get-dangnhap')}}">
+										<i class="fa fa-user"></i>{{Auth::user()->name}}
+									</a>
+									@endif
+								</li>
+								<li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>
+								<li><a href="{{URL::to('/thanh-toan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+								<li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+								<li>
+									@if(Auth::check())
+									<a href="{{URL::to('/logout-user')}}">
+										<i class="fa fa-lock"></i>Đăng xuất
+									</a>
+									@endif
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -162,7 +178,7 @@
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-7">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -194,14 +210,15 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-4">
-						{{-- <form action="{{URL::to('/tim-kiem-ajax')}}" method="GET"> --}}
-                            {{-- {{csrf_field()}} --}}
-							<div class="search_box pull-right">
-								<input type="text" name="search" id="search" class="form-control" placeholder="Search Anything"/>
-								{{-- <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm"> --}}
-							</div>
-                        {{-- </form> --}}
+					<div class="col-sm-5">
+						<form action="{{URL::to('/tim-kiem')}}" method="POST">
+                            {{csrf_field()}}
+                        <div class="search_box pull-right">
+                            <input type="text" name="keywords_submit" placeholder="Tìm kiếm sản phẩm"/>
+                            <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
+                        </div>
+                        </form>
+						</div>	
 					</div>
 				</div>
 			</div>
@@ -317,10 +334,7 @@
 				
 				<div class="col-sm-9 padding-right">
 					@yield('content')
-					
-					
-					
-					{{-- <div class="recommended_items"><!--recommended_items-->
+					 <div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">recommended items</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
@@ -365,13 +379,12 @@
 								<i class="fa fa-angle-right"></i>
 							  </a>			
 						</div>
-					</div><!--/recommended_items--> --}}
+					</div><!--/recommended_items--> 
 					
 				</div>
 			</div>
 		</div>
 	</section>
-	
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -533,9 +546,9 @@
 
   
     <script src="{{asset('public/frontend/js/jquery.js')}}"></script>
-	<script src="{{asset('public/frontend/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('public/frontend/js/jquery.scrollUp.min.js')}}"></script>
-	<script src="{{asset('public/frontend/js/price-range.js')}}"></script>
+    <script src="{{asset('public/frontend/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/frontend/js/jquery.scrollUp.min.js')}}"></script>
+    <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
 	<script src="{{asset('public/frontend/js/main.js')}}"></script>
 	

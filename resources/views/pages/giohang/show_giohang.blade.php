@@ -14,22 +14,23 @@
             ?>
             <table class="table table-condensed">
                 <thead>
-                    <tr class="cart_menu">
+                    <tr class="cart_menu" style="text-align: center;">
                         <td class="image">Hình ảnh</td>
                         <td class="description">Tên sản phẩm</td>
-                        <td class="price">Giá</td>
+                        <td class="price">Giá</td>   
+                        <td><i class="size">Size</i></td>
                         <td class="quantity">Số lượng</td>
                         <td class="total">Tổng tiền</td>
-                        <td></td>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($content as $item_content)
                         
-                    <?php //print_r($content) ?>
+                 
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img src="{{URL::to('public/admin/upload/'.$item_content->options->image)}}" width="100" height="100" alt=""></a>
+                            <a href=""><img src="{{URL::to('public/admin/upload/'.$item_content->options->image)}}" width="50" height="50" alt=""></a>
                         </td>
                         <td class="cart_description">
                             <h4><a href="">{{$item_content->name}}</a></h4>
@@ -37,14 +38,17 @@
                         <td class="cart_price">
                             <p>{{number_format($item_content->price).' '.'vnđ'}}</p>
                         </td>
+                        <td class="cart_size">
+                            <p>{{$item_content->options->size}}</p>
+                        </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
                                 <form action="{{URL::to('capnhat-giohang')}}" method="POST">
                                     {{ csrf_field() }}
-                                <input class="cart_quantity_input" type="text" name="quantity" value="{{$item_content->qty}}">
+                                <input class="cart_quantity_input" type="text" name="quantity" value="{{$item_content->qty}}" size="3">
                                 <input type="hidden" value="{{$item_content->rowId}}" name="rowId_giohang" class="form-control">
-								<input type="submit" value="Cập nhật" name="update_giohang" class="btn btn-default btn-sm">
-                            </form>
+								
+                          
                             </div>
                         </td>
                         <td class="cart_total">
@@ -60,12 +64,12 @@
                             <a class="cart_quantity_delete" href="{{URL::to('/delete-giohang/'.$item_content->rowId)}}"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
-
-                  
-                     
-                   
                      @endforeach
+                     <tr>
+                         <td><input type="submit" value="Cập nhật giỏ hàng" name="update_giohang"  class="btn btn-default check_out"></td>
+                     </tr>
                 </tbody>
+            </form>
             </table>
         </div>
     </div>
@@ -79,12 +83,15 @@
                 <div class="total_area">
                     <ul>
                         <li>Tổng <span>{{Cart::total().' '.'vnđ'}}</span></li>
-                        <li>Thuế <span>{{Cart::tax().' '.'vnđ'}}</span></li>
                         <li>Phí vận chuyển <span>Free</span></li>
                         <li>Thành tiền <span>{{Cart::total().' '.'vnđ'}}</span></li>
                     </ul>
-                   	<a class="btn btn-default update" href="">Cập nhật</a>
-                    <a class="btn btn-default check_out" href="">Thanh toán</a>
+                        <a class="btn btn-default update" href="">Cập nhật</a>
+                        @if(Auth::check())
+                        <a class="btn btn-default check_out" href="{{URL::to('/thanh-toan')}}">Mua</a>
+                        @else
+                        <a class="btn btn-default check_out" href="{{URL::to('/get-dangnhap')}}">Mua</a>
+                        @endif
                 </div>
             </div>
         </div>
