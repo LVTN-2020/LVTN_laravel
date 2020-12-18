@@ -109,6 +109,15 @@ class HomeController extends Controller
             //         '</div>' +
             //     '</a>'
             // );
+
+            // '<div class="col-sm-4">' + 
+            //                     '<div class="single-products">' + 
+            //                         '<div class="productinfo text-center">' + 
+            //                             '<h2>'+ value.gia +'</h2>' +
+            //                             '<p>' + value.ten_sp + '</p>' +
+            //                         '</div>' +
+            //                     '</div>' +
+            //                 '</div>'
             return json_encode($product);
         }
     }
