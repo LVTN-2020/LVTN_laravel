@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\File;
 use Cart;
 
 class GiohangController extends Controller
-{
+{   
+
+    
     public function save_cart(Request $request){
        
         $sanphamid    = $request->sanphamid_hidden;

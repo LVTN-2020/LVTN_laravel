@@ -150,7 +150,7 @@ class SanphamController extends Controller
         $add_size->ma_sp          = $req->ma_sp;
 
         $add_size->save();
-        return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Thêm size thành công']);
+        return redirect('/admin/product/product-size-add')->with(['flag' => 'success', 'message' => 'Thêm size thành công']);
     }
 
     //Thêm màu
