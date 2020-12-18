@@ -114,6 +114,7 @@ Route::post('/capnhat-giohang','GiohangController@capnhat_giohang');
 Route::get('/show-cart','GiohangController@show_giohang');
 Route::get('/gio-hang','GiohangController@gio_hang');
 Route::get('/delete-giohang/{rowId}','GiohangController@delete_giohang');
+
 Route::post('/add-cart-ajax','GiohangController@add_cart_ajax');
   
 
@@ -131,3 +132,7 @@ Route::get('/thanh-toan','ThanhtoanController@thanh_toan');
 Route::post('/save-thanhtoan','ThanhtoanController@save_thanhtoan');
 Route::get('/payment','ThanhtoanController@payment');
 Route::post('/cap-nhap-thanh-toan','ThanhtoanController@postPayment');
+
+//Tim kiem
+Route::post('/tim-kiem', 'HomeController@live_search');
+Route::post('/tim-kiem-ajax', 'HomeController@live_search_ajax');

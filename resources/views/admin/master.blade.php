@@ -43,7 +43,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="{{('public/admin/images/icon/logo.png')}}" alt="CoolAdmin" />
+                            <img src="{{asset('public/admin/images/icon/logo.png')}}" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -633,6 +633,11 @@
     <!-- Main JS-->
     <script src="{{asset('public/admin/js/main.js')}}"></script>
     <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                
+            });
+        } );
         $("div.alert").delay(3000).slideUp();
     </script>
 

@@ -11,33 +11,33 @@
     <div class="table-data__tool">
         <div class="table-data__tool-left">
             <div class="rs-select2--light rs-select2--md">
-                <select class="js-select2" name="property">
+                {{-- <select class="js-select2" name="property">
                     <option selected="selected">All Properties</option>
                     <option value="">Option 1</option>
                     <option value="">Option 2</option>
                 </select>
-                <div class="dropDownSelect2"></div>
+                <div class="dropDownSelect2"></div> --}}
             </div>
-            <button class="au-btn-filter">
+            {{-- <button class="au-btn-filter">
                 <i class="zmdi zmdi-filter-list"></i>filters
-            </button>
+            </button> --}}
         </div>
         <div class="table-data__tool-right">
             <a href="{{URL::to('/admin/supplier/supplier-add')}}" class="au-btn au-btn-icon au-btn--green au-btn--small">
                 <i class="zmdi zmdi-plus"></i>Thêm nhà cung cấp
             </a>
-            <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
+            {{-- <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                 <select class="js-select2" name="type">
                     <option selected="selected">Export</option>
                     <option value="">Option 1</option>
                     <option value="">Option 2</option>
                 </select>
                 <div class="dropDownSelect2"></div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="table-responsive table-responsive-data2">
-        <table class="table table-data2">
+        <table id="example" class="table table-striped table-bordered" style="width:100%" >
             <thead>
                 <tr style="text-align: center;">
                     <th>ID</th>
@@ -45,7 +45,7 @@
                     <th>Địa chỉ</th>
                     <th>Số điện thoại</th>
                     <th>Hành động</th>
-                    <th></th>
+                    {{-- <th></th> --}}
                 </tr>
             </thead>
             <tbody>

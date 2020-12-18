@@ -23,6 +23,7 @@ class GiohangController extends Controller
         $sanphamid    = $request->sanphamid_hidden;
         $quantity     = $request->soluong;
         $size         = $request->input('size_id');
+        // $size         = $request->get('size');
         $color        = $request->color_id;
         $sanpham_info = DB::table('sanpham')->where('ma_sp',$sanphamid)->first();
         $data['id']               = $sanpham_info->ma_sp;
