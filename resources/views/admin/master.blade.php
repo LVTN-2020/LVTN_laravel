@@ -195,6 +195,10 @@
                             <a href="{{URL::to('/admin/user/user-list')}}">
                                 <i class="fa fa-users fa-fw"></i>Users</a>
                         </li>
+                        <li>
+                            <a href="{{URL::to('/admin/order/order-list')}}">
+                                <i class="fa fa-users fa-fw"></i>Đơn hàng</a>
+                        </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-desktop"></i>UI Elements</a>

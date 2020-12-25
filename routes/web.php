@@ -90,6 +90,13 @@ Route::group(['middleware' => 'adminLogin', 'prefix' => 'admin'], function () {
         Route::post('/user-update/{id}','UserController@postEdituser');
         Route::get('/user-delete/{id}','UserController@getDeleteuser');
     });
+
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/order-list', 'DonhangController@getListorder');
+        Route::get('/order-detail/{id}', 'DonhangController@getListdetail');
+        Route::get('/order-edit/{id}', 'DonhangController@getEditorder');
+        Route::post('/order-update/{id}', 'DonhangController@postEditorder');
+    });
 });
 Route::get('/login-admin', 'AdminController@getLogin')->middleware('checkUser');
 Route::post('/login-admin', 'AdminController@postLogin');
