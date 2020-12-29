@@ -52,28 +52,30 @@
                 <?php $stt = 0 ?>
                 @foreach($show_dm as $item)
                 <tr class="tr-shadow" style="text-align: center;">
-                    <?php $stt += 1 ?>
-                    <td>{{$stt}}</td>
-                    <td>{{$item->ten_danhmuc}}</td>
-                    {{-- <td class="desc">Samsung S8 Black</td> --}}
-                    <td>{{$item->slug_danhmuc}}</td>
-                    <td>
-                        @if($item->trangthai_danhmuc == 1)
-                            <span class="status--process">Hiện</span>
-                        @else
-                            <span class="status--denied">Ẩn</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div class="table-data-feature">
-                            <a href="{{URL::to('/admin/cate/cate-edit/'. $item->ma_danhmuc)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="zmdi zmdi-edit"></i>
-                            </a>
-                            <a href="{{URL::to('/admin/cate/cate-del/'. $item->ma_danhmuc)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="zmdi zmdi-delete"></i>
-                            </a>
-                        </div>
-                    </td>
+                    @if($item->trangthai_danhmuc != 0)
+                        <?php $stt += 1 ?>
+                        <td>{{$stt}}</td>
+                        <td>{{$item->ten_danhmuc}}</td>
+                        {{-- <td class="desc">Samsung S8 Black</td> --}}
+                        <td>{{$item->slug_danhmuc}}</td>
+                        <td>
+                            @if($item->trangthai_danhmuc == 1)
+                                <span class="status--process">Hiện</span>
+                            @else
+                                <span class="status--denied">Ẩn</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a href="{{URL::to('/admin/cate/cate-edit/'. $item->ma_danhmuc)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </a>
+                                <a href="{{URL::to('/admin/cate/cate-del/'. $item->ma_danhmuc)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </a>
+                            </div>
+                        </td>
+                    @endif
                 </tr>
                 @endforeach
                 <tr class="spacer"></tr>

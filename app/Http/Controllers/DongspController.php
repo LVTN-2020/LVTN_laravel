@@ -72,8 +72,9 @@ class DongspController extends Controller
     }
 
     public function getDelBrand($id){
-        $del_brand = Dongsanpham::find($id);
-        $del_brand->delete();
+        // $del_brand = Dongsanpham::find($id);
+        // $del_brand->delete();
+        $del_brand = Dongsanpham::where(['ma_dongsp' => $id])->update(['trangthai_dongsp' => 0]); 
         return redirect('/admin/brand/brand-list')->with(['flag' => 'success', 'message' => 'Xóa dòng sản phẩm thành công']);
     }
 }

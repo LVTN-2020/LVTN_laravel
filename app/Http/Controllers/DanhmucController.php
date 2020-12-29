@@ -73,8 +73,9 @@ class DanhmucController extends Controller
     }
 
     public function getDelCate($id){
-        $del_dm = Danhmuc::find($id);
-        $del_dm->delete();
+        // $del_dm = Danhmuc::find($id);
+        // $del_dm->delete();
+        $del_dm = Danhmuc::where(['ma_danhmuc' => $id])->update(['trangthai_danhmuc' => 0]);
         return redirect('/admin/cate/cate-list')->with(['flag' => 'success', 'message' => 'Xóa danh mục thành công']);
     }  
 }

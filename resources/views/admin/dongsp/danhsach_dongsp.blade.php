@@ -54,28 +54,30 @@
                 <?php $stt = 0 ?>
                 @foreach($show_dsp as $item)
                 <tr class="tr-shadow" style="text-align: center;">
-                    <?php $stt += 1 ?>
-                    <td>{{$stt}}</td>
-                    <td>{{$item->ten_dongsp}}</td>
-                    {{-- <td class="desc">Samsung S8 Black</td> --}}
-                    <td>{{$item->slug_dongsp}}</td>
-                    <td>
-                        @if($item->trangthai_dongsp == 1)
-                            <span class="status--process">Hiện</span>
-                        @else
-                            <span class="status--denied">Ẩn</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div class="table-data-feature">
-                            <a href="{{URL::to('/admin/brand/brand-edit/'. $item->ma_dongsp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="zmdi zmdi-edit"></i>
-                            </a>
-                            <a href="{{URL::to('/admin/brand/brand-del/'. $item->ma_dongsp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="zmdi zmdi-delete"></i>
-                            </a>
-                        </div>
-                    </td>
+                    @if($item->trangthai_dongsp != 0)
+                        <?php $stt += 1 ?>
+                        <td>{{$stt}}</td>
+                        <td>{{$item->ten_dongsp}}</td>
+                        {{-- <td class="desc">Samsung S8 Black</td> --}}
+                        <td>{{$item->slug_dongsp}}</td>
+                        <td>
+                            @if($item->trangthai_dongsp == 1)
+                                <span class="status--process">Hiện</span>
+                            @else
+                                <span class="status--denied">Ẩn</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a href="{{URL::to('/admin/brand/brand-edit/'. $item->ma_dongsp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </a>
+                                <a href="{{URL::to('/admin/brand/brand-del/'. $item->ma_dongsp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </a>
+                            </div>
+                        </td>
+                    @endif
                 </tr>
                 @endforeach
                 <tr class="spacer"></tr>

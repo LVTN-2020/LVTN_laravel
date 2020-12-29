@@ -113,9 +113,10 @@ class SanphamController extends Controller
         $del_color_sp = Sanpham_mau::join('sanpham as sp', 'sanpham_mau.ma_sp', 'sp.ma_sp')
                                 ->where('sanpham_mau.ma_sp', $id)
                                 ->delete();
-        $del_sp = Sanpham::find($id);
-        File::delete('public/admin/upload/'. $del_sp->hinhanh);
-        $del_sp->delete();
+        // $del_sp = Sanpham::find($id);
+        // File::delete('public/admin/upload/'. $del_sp->hinhanh);
+        // $del_sp->delete();
+        $del_sp = Sanpham::where(['ma_sp' => $id])->update(['trangthai_sp' => 0]);
         return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Xóa sản phẩm thành công']);
         
     }

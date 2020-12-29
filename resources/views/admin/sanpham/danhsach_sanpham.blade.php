@@ -66,32 +66,34 @@
                 <?php $stt = 0 ?>
                 @foreach($show_sp as $item)
                 <tr class="tr-shadow" style="text-align: center; ">
-                    <?php $stt += 1 ?>
-                    <td>{{ $stt }}</td>
-                    <td>{{ $item->ten_sp }}</td>
-                    <td>{{ number_format($item->gia),0,",","." }}vnđ</td>
-                    {{-- <td>{{ number_format($item->sale),0,",","." }}vnđ</td> --}}
-                    <td><img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width=200 height=200></td>
-                    <td>{{ $item->mota }}</td>
-                    <td>{{ $item->checkcode }}</td>
-                    <td>{{ $item->slug_sanpham }}</td>
-                    <td>
-                        @if($item->trangthai_sp == 1)
-                            <span class="status--process">Hiện</span>
-                        @else
-                            <span class="status--denied">Ẩn</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div class="table-data-feature">
-                            <a href="{{URL::to('/admin/product/product-edit/'. $item->ma_sp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="zmdi zmdi-edit"></i>
-                            </a>
-                            <a href="{{URL::to('/admin/product/product-del/'. $item->ma_sp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="zmdi zmdi-delete"></i>
-                            </a>
-                        </div>
-                    </td>
+                    @if($item->trangthai_sp != 0)
+                        <?php $stt += 1 ?>
+                        <td>{{ $stt }}</td>
+                        <td>{{ $item->ten_sp }}</td>
+                        <td>{{ number_format($item->gia),0,",","." }}vnđ</td>
+                        {{-- <td>{{ number_format($item->sale),0,",","." }}vnđ</td> --}}
+                        <td><img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width=200 height=200></td>
+                        <td>{{ $item->mota }}</td>
+                        <td>{{ $item->checkcode }}</td>
+                        <td>{{ $item->slug_sanpham }}</td>
+                        <td>
+                            @if($item->trangthai_sp == 1)
+                                <span class="status--process">Hiện</span>
+                            @else
+                                <span class="status--denied">Ẩn</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a href="{{URL::to('/admin/product/product-edit/'. $item->ma_sp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </a>
+                                <a href="{{URL::to('/admin/product/product-del/'. $item->ma_sp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </a>
+                            </div>
+                        </td>
+                    @endif
                 </tr>
                 @endforeach
                 <tr class="spacer"></tr>
