@@ -1,11 +1,8 @@
 @extends('welcome')
 @section('content')
 <div class="features_items"><!--features_items-->
-    @foreach($dongsanpham_name as $item)
-    <h2 class="title text-center">{{$item->ten_dongsp}}</h2>
-    @endforeach
-
-    @foreach($sanpham_slug as $item)
+    <h2 class="title text-center">Danh mục sản phẩm</h2>
+    @foreach($danhmucsp_slug as $item)
     <a href="{{URL::to('/chi-tiet-san-pham/'.$item->slug_sanpham.'.html')}}">
     <div class="col-sm-4">
         <div class="product-image-wrapper">

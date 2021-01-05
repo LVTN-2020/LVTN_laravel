@@ -55,7 +55,7 @@ class GiohangController extends Controller
     }
     public function capnhat_giohang(Request $request){
         $rowId = $request->rowId_giohang;
-        $qty = $request->quantity;
+        $qty = (int)$request->quantity;
         Cart::update($rowId,$qty);
         return redirect('/show-cart');
     }

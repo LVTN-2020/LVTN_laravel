@@ -94,6 +94,29 @@
 						<div class="logo pull-left">
 							<a href="{{ URL::to('/') }}"><img src="{{asset('public/frontend/images/home/logo.png')}}" alt="" /></a>
 						</div>
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								{{--  <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									USA
+									<span class="caret"></span>
+								</button>  --}}
+								{{--  <ul class="dropdown-menu">
+									<li><a href="#">Canada</a></li>
+									<li><a href="#">UK</a></li>
+								</ul>  --}}
+							</div>
+							
+							<div class="btn-group">
+								{{--  <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									DOLLAR
+									<span class="caret"></span>
+								</button>  --}}
+								{{--  <ul class="dropdown-menu">
+									<li><a href="#">Canadian Dollar</a></li>
+									<li><a href="#">Pound</a></li>
+								</ul>  --}}
+							</div>
+						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
@@ -109,9 +132,9 @@
 									</a>
 									@endif
 								</li>
-								<li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>
-								<li><a href="{{URL::to('/thanh-toan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-								<li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+								{{--  <li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>  --}}
+								{{--  <li><a href="{{URL::to('/thanh-toan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>  --}}
+								<li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
 								<li>
 									@if(Auth::check())
 									<a href="{{URL::to('/logout-user')}}">
@@ -140,24 +163,24 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="{{URL::to('/')}}" class="active">Trang chủ</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+								<li><a href="{{URL::to('/')}}" class="active">TRANG CHỦ</a></li>
+								<li class="dropdown"><a href="#">SẢN PHẨM<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+                                        <li><a href="http://localhost/LVTN_laravel/dong-san-pham/adidas.html">ADDIDAS</a></li>
+										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/nike.html">NIKE</a></li> 
+										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/puma%20123.html">PUMA</a></li> 
+										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/vans.html">VANS</a></li> 
+										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/converse.html">CONVERSE</a></li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+								{{--  <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
 										<li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
-                                </li> 
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+                                </li>   --}}
+								<li><a href="https://kingshoes.vn/gioi-thieu">GIỚI THIỆU</a></li>
+								<li><a href="https://kingshoes.vn/lien-he">LIÊN HỆ</a></li>
 							</ul>
 						</div>
 					</div>
@@ -191,9 +214,9 @@
 							<div class="item active">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h2>MUA 1 TẶNG 1</h2>
+									<p> Đón tết cùng E-shopper </p>
+									<button type="button" class="btn btn-default get">Mua ngay</button>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{asset('public/frontend/images/home/girl1.jpg')}}" class="girl img-responsive" alt="" />
@@ -203,9 +226,9 @@
 							<div class="item">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h2>SALE up to 30%</h2>
+									<p> </p>
+									<button type="button" class="btn btn-default get">Mua ngay</button>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{asset('public/frontend/images/home/girl2.jpg')}}" class="girl img-responsive" alt="" />
@@ -216,9 +239,10 @@
 							<div class="item">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free Ecommerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h2>Khách hàng thân thiết</h2>
+									<p>Mua hàng càng nhiều</p>
+									<p>Nhận ưa đãi càng lớn</p>
+									<button type="button" class="btn btn-default get">Mua ngay</button>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{asset('public/frontend/images/home/girl3.jpg')}}" class="girl img-responsive" alt="" />
@@ -251,7 +275,7 @@
 							@foreach($danhmuc as $item)
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title"><a href="{{URL::to('/danh-muc/'.$item->ma_danhmuc)}}">{{$item->ten_danhmuc}}</a></h4>
+									<h4 class="panel-title"><a href="{{URL::to('/danhmuc-sanpham/'.$item->ma_danhmuc.'.html')}}">{{$item->ten_danhmuc}}</a></h4>
 								</div>
 							</div>
 						@endforeach
@@ -269,10 +293,10 @@
 						</div><!--/brands_products-->
 						
 						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+							<h2>Chọn mức giá</h2>
 							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600000" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
+								 <b class="pull-left"> 0</b> <b class="pull-right">600000</b>
 							</div>
 						</div><!--/price-range-->
 						
@@ -289,7 +313,6 @@
 			</div>
 		</div>
 	</section>
-	
 	
 
   

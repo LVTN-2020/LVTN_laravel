@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Danhmuc;
 use Illuminate\Http\Request;
-
+use DB;
+use App\Models\Dongsanpham;
 class DanhmucController extends Controller
 {
     public function getAddCate(){
@@ -78,4 +79,17 @@ class DanhmucController extends Controller
         $del_dm = Danhmuc::where(['ma_danhmuc' => $id])->update(['trangthai_danhmuc' => 0]);
         return redirect('/admin/cate/cate-list')->with(['flag' => 'success', 'message' => 'Xóa danh mục thành công']);
     }  
+    // public function show_danhmuc_home($slug_danhmuc){
+    //     $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+    //      $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+    //     $danhmuc_by_id = DB::table('sanpham')->join('danhhmuc','sanpham.ma_danhmuc','=','danhmuc.ma_danhmuc')
+    //     ->where('danhmuc.slug_danhmuc',$slug_danhmuc)->get();
+        
+    //     return view('pages.danhmuc1.show_danhmuc_sanpham') 
+    //     ->with('danhmuc', $danhmuc)
+    //      ->with('dongsanpham', $dongsanpham)
+    //     ->with('danhmuc_by_id', $danhmuc_by_id);
+
+
+    // }
 }

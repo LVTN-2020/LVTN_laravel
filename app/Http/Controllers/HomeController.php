@@ -11,7 +11,7 @@ use App\Models\Sanpham_mau;
 use App\Models\Sanpham_size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
 {
@@ -31,10 +31,28 @@ class HomeController extends Controller
                                 ->where('dongsanpham.slug_dongsp', $slug)
                                 ->select('sp.ma_sp', 'sp.ten_sp', 'sp.gia', 'sp.hinhanh', 'sp.mota', 'sp.checkcode', 'sp.slug_sanpham')
                                 ->get();
+        $dongsanpham_name = DB::table('dongsanpham')->where('.slug_dongsp',$slug)->limit(1)->get();
         return view('pages.dongsanpham.show_dongsp') 
         ->with('danhmuc', $danhmuc)
         ->with('dongsanpham', $dongsanpham)
+        ->with('dongsanpham_name', $dongsanpham_name)
         ->with('sanpham_slug', $sanpham_slug);
+
+    }
+    public function show_danhmuc_home(string $ma_danhmuc){
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+          $danhmucsp_slug = Danhmuc::join('sanpham as sp', 'danhmuc.ma_danhmuc', '=', 'sp.ma_danhmuc')
+                                 ->where('danhmuc.ma_danhmuc', $ma_danhmuc)
+                                ->select('sp.ma_sp', 'sp.ten_sp', 'sp.gia', 'sp.hinhanh', 'sp.mota', 'sp.checkcode', 'sp.slug_sanpham')
+                                 ->get();
+        //  $danhmucsp_slug = DB::table('sanpham')->join('danhmuc','dongsanpham.ma_danhmuc','=','danhmuc.ma_danhmuc')
+        //                                     ->where('danhmuc.slug_danhmuc',$slug_danhmuc)->get();
+        // $danhmuc_name = DB::table('danhmuc')->where('.slug_danhmuc',$slug_danhmuc)->limit(1)->get();
+        return view('pages.danhmuc1.show_danhmuc_sanpham') 
+        ->with('danhmuc', $danhmuc)
+        ->with('dongsanpham', $dongsanpham)
+        ->with('danhmucsp_slug', $danhmucsp_slug);
 
     }
     public function chitiet_sp(string $slug_sp)
@@ -51,6 +69,13 @@ class HomeController extends Controller
                      'sp.ma_danhmuc', 'sp.ma_dongsp', 'sp.ma_ncc',
                      'dsp.ten_dongsp', 'dmuc.ten_danhmuc', 'ncc.ten_ncc')
             ->get();
+            foreach($chitiet_sanpham as $item => $value){
+                $ma_dongsp = $value->ma_dongsp;
+            }
+            $related_sanpham = DB::table('sanpham')
+            ->join('danhmuc','danhmuc.ma_danhmuc','=','sanpham.ma_danhmuc')
+            ->join('dongsanpham','dongsanpham.ma_dongsp','=','sanpham.ma_dongsp')
+            ->where('dongsanpham.ma_dongsp',$ma_dongsp)->whereNotIn('sanpham.slug_sanpham',[$slug_sp])->get();
         $get_sub_img = DB::table('sanpham_hinhanh as sp_ha')
                             ->join('sanpham as sp', 'sp_ha.ma_sp', '=', 'sp.ma_sp')
                             ->where('sp.slug_sanpham', $slug_sp)
@@ -71,6 +96,7 @@ class HomeController extends Controller
 
         return view('pages.sanpham.show_chitietsp')
                 ->with('danhmuc', $danhmuc)
+                ->with('relate',$related_sanpham)
                 ->with('chitiet_sanpham', $chitiet_sanpham)
                 ->with('dongsanpham', $dongsanpham)
                 ->with('get_size', $get_size)
