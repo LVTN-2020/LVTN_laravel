@@ -13,4 +13,7 @@ class Danhmuc extends Model
     protected $fillable = ['ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc'];
     protected $primaryKey = 'ma_danhmuc';
 
+    public function cateProduct(){
+        return $this->hasMany('App\Models\Sanpham');
+    }
 }

@@ -12,4 +12,8 @@ class Nhacungcap extends Model
     protected $table = 'nhacungcap';
     protected $fillable = ['ten_ncc', 'diachi', 'sdt'];
     protected $primaryKey = 'ma_ncc';
+
+    public function supplierProduct(){
+        return $this->hasMany('App\Models\Sanpham');
+    }
 }
