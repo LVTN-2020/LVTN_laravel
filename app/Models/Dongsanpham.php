@@ -12,4 +12,8 @@ class Dongsanpham extends Model
     protected $table = 'dongsanpham';
     protected $fillable = ['ten_dongsp', 'trangthai_dongsp', 'slug_dongsp'];
     protected $primaryKey = 'ma_dongsp';
+
+    public function brandProduct(){
+        return $this->hasMany('App\Models\Sanpham');
+    }
 }

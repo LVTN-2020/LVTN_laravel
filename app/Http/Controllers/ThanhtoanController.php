@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChitietDH;
 use App\Models\Danhmuc;
 use App\Models\Dongsanpham;
-use App\Models\Nhacungcap;
-use App\Models\Sanpham;
-use App\Models\Sanpham_ha;
-use App\Models\Sanpham_mau;
-use App\Models\Sanpham_size;
+use App\Models\Donhang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Donnhang;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Session,Redirect, Cart;
+use Redirect, Cart, Mail;
 
 class ThanhtoanController extends Controller
 {
@@ -96,87 +91,74 @@ class ThanhtoanController extends Controller
     public function thanh_toan(){
         $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
         $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+        $ngaydathang = Carbon::now()->format('d-m-Y');
+        $user = Auth::user();
+        $json_user = json_encode($user);
           return view('pages.thanhtoan.show_thanhtoan')
+          ->with('user', $user)
+          ->with('json_user', $json_user)
           ->with('danhmuc', $danhmuc)
-          ->with('dongsanpham', $dongsanpham);
+          ->with('dongsanpham', $dongsanpham)
+          ->with('ngaydathang', $ngaydathang);
     }
     public function save_thanhtoan(Request $req){
-        // $this->validate($req, [
-        //     'ten_nguoinhan' => 'required',
-        //     'sdt' => 'required',
-        //     'diachi' => 'required',
-          
-            
-        // ], [
-        //     'ten_nguoinhan.required' => 'Vui lòng nhập tên người dùng',
-        //     'sdt.required' => 'Vui lòng nhập số điện thoại',
-        //     'diachi.required' => 'Vui lòng nhập địa chỉ',
-        // ]);
-
-        // $donhang           = new Donnhang();
-        // $donhang->ten_nguoinhan     = $req->ten_nguoinhan;
-        // $donhang->sdt    = $req->sdt;
-        // $donhang->diachi  = $req->diachi;
-
-        // $user->save();
-
-        // $rand_number = Str::random(4);
 
         //thêm đơn hàng
         $rand_number = rand(100,999);
         $numberToString = (string)$rand_number;
         $string = "mdh-".$numberToString;
 
-        $data = array();
-    	$data['ten_nguoinhan'] = $req->ten_nguoinhan;
-    	$data['sdt'] = $req->sdt;
-    	$data['ngaydathang'] = $req->ngaydathang;
-    	$data['ma_dh'] = $req->ma_dh;
-    	$data['ma_tt'] = $req->ma_tt;
-    	$data['ma_vanchuyen'] = 1;
-    	$data['phivanchuyen'] = 0;
-    	$data['tongtien'] = $req->tongtien;
-        $data['trangthai_dh'] = 'Đang chờ xử lý';
-        $data['diachi'] = $req->diachi;
-        $data['user_id'] = $req->user_id;
-        $data['ma_dh'] = $string;
+        $ngaydathang = Carbon::parse()->format('Y-m-d');
 
-    	$donhang_id = DB::table('donhang')->insertGetId($data);
+        $donhang = new Donhang;
+        $donhang->ten_nguoinhan = $req->ten_nguoinhan;
+        $donhang->sdt = $req->sdt;
+        $donhang->ngaydathang = $ngaydathang;
+        $donhang->ma_dh = $req->ma_dh;
+        $donhang->ma_tt = $req->ma_tt;
+        $donhang->ma_vanchuyen = 1;
+        $donhang->phivanchuyen = 0;
+        $donhang->tongtien = $req->tongtien;
+        $donhang->trangthai_dh = 'Đang chờ xử lý';
+        $donhang->diachi = $req->diachi;
+        $donhang->user_id = $req->user_id;
+        $donhang->ma_dh = $string;
 
-        Session::put('donhang_id',$donhang_id);
-        
-        //thêm chi tiết đơn hàng
+        $donhang->save();
+        $donhang->donhang_id;
 
-        return Redirect::to('/payment');
-        
-        
-    }
-    public function payment(Request $req){
-        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
-        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
-        $get_dh_id = DB::table('donhang')->get();
-          return view('pages.thanhtoan.payment')
-          ->with('get_dh_id',$get_dh_id)
-          ->with('danhmuc', $danhmuc)
-          ->with('dongsanpham', $dongsanpham);
+        $chitiet_dh = new ChitietDH;
+        $chitiet_dh->ten_sp = $req->ten_sp;
+        $chitiet_dh->so_tien = $req->so_tien;
+        $chitiet_dh->soluong = $req->soluong;
+        $chitiet_dh->size = $req->size;
+        $chitiet_dh->mau = $req->mau;
+        $chitiet_dh->tongtien = $req->tongtien;
+        $chitiet_dh->donhang_id = $donhang->donhang_id;
+        $chitiet_dh->ma_sp = $req->ma_sp;
 
-    }
-    public function postPayment(Request $req){
-        $get_dh_id = DB::table('donhang')->get();
+        $chitiet_dh->save();
 
-        $data_d = array();
-    	$data_d['ten_sp'] = $req->ten_sp;
-    	$data_d['so_tien'] = $req->so_tien;
-    	$data_d['soluong'] = $req->soluong;
-    	$data_d['size'] = $req->size;
-    	$data_d['mau'] = $req->mau;
-    	$data_d['tongtien'] = $req->tongtien;
-        $data_d['donhang_id'] = $req->donhang_id;
-        $data_d['ma_sp'] = $req->ma_sp;
+        $cus_email = Auth::user()->email;
+        $cus_name = Auth::user()->name;
 
-    	// Session::put('ma_chitiet',$ma_chitiet);
-        $chitiet_dh = DB::table('chitiet_dh')->insert($data_d);
-        Cart::destroy();
+        $get_detail = DB::table('donhang as dh')
+                        ->join('chitiet_dh as ctdh', 'ctdh.donhang_id', '=', 'dh.donhang_id')
+                        ->where('ctdh.donhang_id', $donhang->donhang_id)
+                        ->select('ctdh.ten_sp', 'ctdh.mau', 'ctdh.size', 'ctdh.soluong', 'ctdh.so_tien', 'ctdh.tongtien')
+                        ->get();
+
+        Mail::send('email.order',[
+                'cus_name' => $cus_name,
+                'order' => $donhang,
+                'items' =>  $get_detail,
+        ],function($mail) use($cus_email,$cus_name){
+            $mail->to($cus_email,$cus_name);
+            $mail->from('hp1997tg@gmail.com');
+            $mail->subject('Đặt hàng thành công');
+            Cart::destroy();
+        });
+
         return Redirect::to('/');
     }
 }
