@@ -107,122 +107,30 @@
 <div class="category-tab shop-details-tab"><!--category-tab-->
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
-            <li><a href="#details" data-toggle="tab">Chi tiết</a></li>
-            <li><a href="#companyprofile" data-toggle="tab">Giới thiệu</a></li>
-            <li><a href="#tag" data-toggle="tab">Mô tả</a></li>
-            <li class="active"><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
+            <li class="active"><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>
+            <li><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
         </ul>
     </div>
     <div class="tab-content">
-        <div class="tab-pane fade" id="details" >
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="images/home/gallery1.jpg" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="tab-pane fade active in" id="details" >
+            <p>{!!$item->mota!!}</p>     
         </div>
-        
-        <div class="tab-pane fade" id="companyprofile" >
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="images/home/gallery1.jpg" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="images/home/gallery3.jpg" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="images/home/gallery2.jpg" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="images/home/gallery4.jpg" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="tab-pane fade active in" id="reviews" >
+        <div class="tab-pane fade" id="reviews" >
             <div class="col-sm-12">
                 <ul>
                     <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
                     <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <p><b>Write Your Review</b></p>
-                
+                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2021</a></li>
+                </ul>   
                 <form action="#">
                     <span>
-                        <input type="text" placeholder="Your Name"/>
-                        <input type="email" placeholder="Email Address"/>
+                        <input type="text" placeholder="Tên của bạn"/>
+                        <input type="email" placeholder="Địa chỉ Email"/>
                     </span>
                     <textarea name="" ></textarea>
-                    <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
+                    <b>Xếp hạng đánh giá: </b> <img src="images/product-details/rating.png" alt="" />
                     <button type="button" class="btn btn-default pull-right">
-                        Submit
-                    </button>
-                </form>
-            </div>
-        </div>
-        
-        <div class="tab-pane fade active in" id="reviews" >
-            <div class="col-sm-12">
-                <ul>
-                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <p><b>Write Your Review</b></p>
-                
-                <form action="#">
-                    <span>
-                        <input type="text" placeholder="Your Name"/>
-                        <input type="email" placeholder="Email Address"/>
-                    </span>
-                    <textarea name="" ></textarea>
-                    <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                    <button type="button" class="btn btn-default pull-right">
-                        Submit
+                        Đánh giá
                     </button>
                 </form>
             </div>
@@ -236,82 +144,22 @@
     
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="item active">	
+            <div class="item active">
+                @foreach($relate as $item => $lienquan)
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{URL::to('/public/frontend/images/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+                                <img src="{{URL::to('public/admin/upload/'.$lienquan->hinhanh)}}" width="200" height="100" alt="" />
+                                <h2>{{ number_format( $lienquan->gia),',','.' }}vnđ</h2>
+                                <p>{{  $lienquan->ten_sp }}</p>
+                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('/public/frontend/images/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('/public/frontend/images/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">	
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('/public/frontend/images/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('/public/frontend/images/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('/public/frontend/images/home/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    @endforeach	
+                </div> 
         </div>
          <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
             <i class="fa fa-angle-left"></i>

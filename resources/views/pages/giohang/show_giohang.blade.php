@@ -37,6 +37,7 @@
                         </td>
                         <td class="cart_price">
                             <p>{{number_format($item_content->price).' '.'vnđ'}}</p>
+                           
                         </td>
                         <td class="cart_size">
                             <p>{{$item_content->options->size}}</p>
@@ -45,10 +46,10 @@
                             <div class="cart_quantity_button">
                                 <form action="{{URL::to('capnhat-giohang')}}" method="POST">
                                     {{ csrf_field() }}
-                                <input class="cart_quantity_input" type="text" name="quantity" value="{{$item_content->qty}}" size="3">
+                                <input class="cart_quantity_input"name="quantity" value="{{$item_content->qty}}" size="3">
                                 <input type="hidden" value="{{$item_content->rowId}}" name="rowId_giohang" class="form-control">
-								
-                          
+                                <input type="submit" value="Cập nhật" name="capnhat_giohang" class="btn btn-default btn-sm">
+                            </form>
                             </div>
                         </td>
                         <td class="cart_total">
@@ -65,11 +66,7 @@
                         </td>
                     </tr>
                      @endforeach
-                     <tr>
-                         <td><input type="submit" value="Cập nhật giỏ hàng" name="update_giohang"  class="btn btn-default check_out"></td>
-                     </tr>
                 </tbody>
-            </form>
             </table>
         </div>
     </div>
@@ -86,7 +83,6 @@
                         <li>Phí vận chuyển <span>Free</span></li>
                         <li>Thành tiền <span>{{Cart::total().' '.'vnđ'}}</span></li>
                     </ul>
-                        <a class="btn btn-default update" href="">Cập nhật</a>
                         @if(Auth::check())
                         <a class="btn btn-default check_out" href="{{URL::to('/thanh-toan')}}">Mua</a>
                         @else

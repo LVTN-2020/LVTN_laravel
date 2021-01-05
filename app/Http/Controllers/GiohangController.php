@@ -21,7 +21,7 @@ class GiohangController extends Controller
     public function save_cart(Request $request){
        
         $sanphamid    = $request->sanphamid_hidden;
-        $quantity     = $request->soluong;
+        $quantity     = (int)$request->soluong;
         $size         = $request->input('size_id');
         // $size         = $request->get('size');
         $color        = $request->color_id;
@@ -55,7 +55,7 @@ class GiohangController extends Controller
     }
     public function capnhat_giohang(Request $request){
         $rowId = $request->rowId_giohang;
-        $qty = $request->quantity;
+        $qty = (int)$request->quantity;
         Cart::update($rowId,$qty);
         return redirect('/show-cart');
     }

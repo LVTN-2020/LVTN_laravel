@@ -33,8 +33,8 @@
             </div>
         </div>
     @endforeach
-</div><!--features_items-->
 @endsection
+
 
 @section('script')
 <script>
