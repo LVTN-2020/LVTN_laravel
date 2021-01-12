@@ -81,12 +81,17 @@ class SanphamController extends Controller
 
     public function postEditProduct(Request $req, $id){
 
-        $file_name             = $req->file('fImages')->getClientOriginalName();
+        $this->validate($req, [
+            'fImages' => 'nullable|sometimes|image|mimes:jpeg,jpg,png'
+        ], [
+            'fImages.mimes'    => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
+        ]);
+
+        $get_img = $req->file('fImages');
         $sanpham               = Sanpham::find($id);
         $sanpham->ten_sp       = $req->tensp;
         $sanpham->gia          = $req->gia;
         $sanpham->sale         = $req->sale;
-        $sanpham->hinhanh      = $file_name;
         $sanpham->mota         = $req->mota;
         $sanpham->checkcode    = $req->checkcode;
         $sanpham->slug_sanpham = $req->slug_sp;
@@ -94,10 +99,19 @@ class SanphamController extends Controller
         $sanpham->ma_danhmuc   = $req->danhmuc_sp;
         $sanpham->ma_dongsp    = $req->dsp;
         $sanpham->ma_ncc       = $req->ncc_sp;
-
-        $req->file('fImages')->move('public/admin/upload/', $file_name);
+        // $sanpham->hinhanh      = $req->file('fImages');
+        
+        
+        if($get_img){
+            $get_name_img = $get_img->getClientOriginalName();
+            $req->file('fImages')->move('public/admin/upload/', $get_name_img);
+            $sanpham->hinhanh = $get_name_img;
+            $sanpham->save();
+            return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Cập nhật sản phẩm thành công']);
+        }
         $sanpham->save();
         return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Cập nhật sản phẩm thành công']);
+        // $req->file('fImages')->move('public/admin/upload/', $file_name);
     }
 
     public function getDelProduct($id){

@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label>Mô tả</label>
-                    <textarea class="form-control" rows="3" name="mota" >{{ $edit_sp->mota }}</textarea>
+                    <textarea class="form-control" rows="3" name="mota" id="ckeditor1" >{{ $edit_sp->mota }}</textarea>
                 </div>
                 <div class="form-group">
                     <label>Check code</label>

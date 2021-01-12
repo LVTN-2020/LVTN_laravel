@@ -11,23 +11,14 @@
     <div class="table-data__tool">
         <div class="table-data__tool-left">
             <div class="rs-select2--light rs-select2--md">
-                {{-- <select class="js-select2" name="property">
-                    <option selected="selected">All Properties</option>
-                    <option value="">Option 1</option>
-                    <option value="">Option 2</option>
-                </select>
-                <div class="dropDownSelect2"></div> --}}
             </div>
-            {{-- <button class="au-btn-filter">
-                <i class="zmdi zmdi-filter-list"></i>filters
-            </button> --}}
         </div>
         <div class="table-data__tool-right">
             
         </div>
     </div>
     <div class="table-responsive table-responsive-data2">
-        <table id="example" class="table table-striped table-bordered" style="width:100%" >
+        <table id="example" class="display" style="width:100%">
             <thead>
                 <tr style="text-align: center;">
                     <th>ID</th>
@@ -37,7 +28,6 @@
                     <th>Số lượng</th>
                     <th>Số tiền</th>
                     <th>Tổng tiền</th>
-                    {{-- <th></th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +44,9 @@
                     <td>{{$ctdh->tongtien}}</td>
                 </tr>
                 @endforeach
-                <tr class="spacer"></tr>
             </tbody>
         </table>
+        
     </div>
     <!-- END DATA TABLE -->
 </div>

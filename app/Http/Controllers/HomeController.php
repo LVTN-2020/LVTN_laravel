@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index(){
         $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
         $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
-        $sanpham = Sanpham::all();
+        $sanpham = Sanpham::paginate(9);
         return view('pages.home') 
         ->with('danhmuc', $danhmuc)
         ->with('dongsanpham', $dongsanpham)
@@ -30,7 +30,7 @@ class HomeController extends Controller
         $sanpham_slug = Dongsanpham::join('sanpham as sp', 'dongsanpham.ma_dongsp', '=', 'sp.ma_dongsp')
                                 ->where('dongsanpham.slug_dongsp', $slug)
                                 ->select('sp.ma_sp', 'sp.ten_sp', 'sp.gia', 'sp.hinhanh', 'sp.mota', 'sp.checkcode', 'sp.slug_sanpham')
-                                ->get();
+                                ->paginate(9);
         $dongsanpham_name = DB::table('dongsanpham')->where('.slug_dongsp',$slug)->limit(1)->get();
         return view('pages.dongsanpham.show_dongsp') 
         ->with('danhmuc', $danhmuc)
@@ -42,14 +42,11 @@ class HomeController extends Controller
     public function show_danhmuc_home(string $ma_danhmuc){
         $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
         $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
-          $danhmucsp_slug = Danhmuc::join('sanpham as sp', 'danhmuc.ma_danhmuc', '=', 'sp.ma_danhmuc')
+        $danhmucsp_slug = Danhmuc::join('sanpham as sp', 'danhmuc.ma_danhmuc', '=', 'sp.ma_danhmuc')
                                  ->where('danhmuc.ma_danhmuc', $ma_danhmuc)
                                 ->select('sp.ma_sp', 'sp.ten_sp', 'sp.gia', 'sp.hinhanh', 'sp.mota', 'sp.checkcode', 'sp.slug_sanpham')
-                                 ->get();
-        //  $danhmucsp_slug = DB::table('sanpham')->join('danhmuc','dongsanpham.ma_danhmuc','=','danhmuc.ma_danhmuc')
-        //                                     ->where('danhmuc.slug_danhmuc',$slug_danhmuc)->get();
-        // $danhmuc_name = DB::table('danhmuc')->where('.slug_danhmuc',$slug_danhmuc)->limit(1)->get();
-        return view('pages.danhmuc1.show_danhmuc_sanpham') 
+                                 ->paginate(9);
+        return view('pages.danhmuc.show_danhmuc_sanpham') 
         ->with('danhmuc', $danhmuc)
         ->with('dongsanpham', $dongsanpham)
         ->with('danhmucsp_slug', $danhmucsp_slug);
@@ -105,45 +102,28 @@ class HomeController extends Controller
 
     }
 
-    // public function live_search(Request $req){
-    //     $keyword = $req->search;
-    //     $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
-    //     $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
-    //     $search = DB::table('sanpham')->where('ten_sp', 'LIKE', '%'.$keyword.'%')->get();
-    //     return view('pages.sanpham.timkiem')
-    //             ->with('danhmuc', $danhmuc)
-    //             ->with('dongsanpham', $dongsanpham)
-    //             ->with('search', $search);
-    // }
+    public function live_search(Request $req){
+        $keyword = $req->search;
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+        $search = DB::table('sanpham')
+                    ->where('ten_sp', 'LIKE', '%'.$keyword.'%');
+        if(!$search){
+            echo "không tìm thấy kết quả";
+        }else{
+            $search = $search->get();
+        }
+        return view('pages.sanpham.timkiem')
+                ->with('danhmuc', $danhmuc)
+                ->with('dongsanpham', $dongsanpham)
+                ->with('search', $search);
+    }
 
     public function live_search_ajax(Request $req){
         $valueSearch = $req->search;
         if($req->ajax()){
             $output = '';
             $product = DB::table('sanpham')->where('ten_sp', 'LIKE', '%'.$valueSearch.'%')->get();
-            
-            // $('.search_ajax').append(
-            //     '<a href="{{URL::to('/chi-tiet-san-pham/' + 'value.slug_sanpham' + '.html')}}">' + 
-            //         '<div class="col-sm-4">' + 
-            //             '<div class="single-products">' + 
-            //                 '<div class="productinfo text-center">' + 
-            //                     '<img src="{{URL::to('public/admin/upload/' + value.hinhanh)}}" width="200" height="100" alt="" />' +
-            //                     '<h2>'+ value.gia + vnđ +'</h2>' +
-            //                     '<p>' + value.ten_sp + '</p>' +
-            //                 '</div>' +
-            //             '</div>' +
-            //         '</div>' +
-            //     '</a>'
-            // );
-
-            // '<div class="col-sm-4">' + 
-            //                     '<div class="single-products">' + 
-            //                         '<div class="productinfo text-center">' + 
-            //                             '<h2>'+ value.gia +'</h2>' +
-            //                             '<p>' + value.ten_sp + '</p>' +
-            //                         '</div>' +
-            //                     '</div>' +
-            //                 '</div>'
             return json_encode($product);
         }
     }

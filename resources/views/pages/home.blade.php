@@ -20,19 +20,30 @@
                                 <h2>{{ number_format($item->gia),',','.' }}vnđ</h2>
                                 <p>{{ $item->ten_sp }}</p>
                             </a>
-                            <button type="button" class="btn btn-default add-to-cart" data-id_product="{{$item->ma_sp}}" name="add-to-cart">Thêm giỏ hàng</button>
                     </form>
                     </div>
-                    {{-- <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                        </ul>
-                    </div> --}}
                 </div>
             </div>
         </div>
     @endforeach
+    <nav aria-label="Page navigation example">
+        @if($sanpham != '')
+        <ul class="pagination pull-right">
+            @if($sanpham->currentPage() != 1)
+            <li class="page-item"><a class="page-link" href="{{str_replace('/?', '?', $sanpham->url($sanpham->currentPage() - 1) )}}">Previous</a></li>
+            @endif
+            @for($i = 1; $i <= $sanpham->lastPage(); $i = $i + 1)
+            <li class="page-item  {{$sanpham->currentPage() == $i ? 'active' : ''}}"><a class="page-link" href="{{str_replace('/?', '?', $sanpham->url($i)) }}">{{ $i }}</a></li>
+            @endfor
+            @if($sanpham->currentPage() != $sanpham->lastPage())
+            <li class="page-item"><a class="page-link" href="{{str_replace('/?', '?', $sanpham->url($sanpham->currentPage() + 1) ) }}">Next</a></li>
+            @endif
+        </ul>
+        @else
+            <p>Không có sản phẩm</p>
+        @endif      
+    </nav>
+</div>
 @endsection
 
 

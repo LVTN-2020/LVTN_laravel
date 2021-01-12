@@ -94,46 +94,29 @@
 						<div class="logo pull-left">
 							<a href="{{ URL::to('/') }}"><img src="{{asset('public/frontend/images/home/logo.png')}}" alt="" /></a>
 						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								{{--  <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
-									<span class="caret"></span>
-								</button>  --}}
-								{{--  <ul class="dropdown-menu">
-									<li><a href="#">Canada</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>  --}}
-							</div>
-							
-							<div class="btn-group">
-								{{--  <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
-									<span class="caret"></span>
-								</button>  --}}
-								{{--  <ul class="dropdown-menu">
-									<li><a href="#">Canadian Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>  --}}
-							</div>
-						</div>
+						
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
+								@if(!Auth::check())
 								<li>
-									@if(!Auth::check())
 									<a href="{{URL::to('/get-dangnhap')}}">
 										<i class="fa fa-user"></i>Tài khoản
 									</a>
-									@else
-									<a href="{{URL::to('/get-dangnhap')}}">
+								</li>
+								@else
+								<li>
+									<a href="{{URL::to('/')}}">
 										<i class="fa fa-user"></i>{{Auth::user()->name}}
 									</a>
-									@endif
 								</li>
-								{{--  <li><a href="#"><i class="fa fa-star"></i>Yêu thích</a></li>  --}}
-								{{--  <li><a href="{{URL::to('/thanh-toan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>  --}}
+								<li>
+									<a href="{{URL::to('/info-order')}}">
+										<i class="fa fa-crosshairs"></i> Đơn hàng
+									</a>
+								</li> 
+								@endif
 								<li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
 								<li>
 									@if(Auth::check())
@@ -166,32 +149,24 @@
 								<li><a href="{{URL::to('/')}}" class="active">TRANG CHỦ</a></li>
 								<li class="dropdown"><a href="#">SẢN PHẨM<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="http://localhost/LVTN_laravel/dong-san-pham/adidas.html">ADDIDAS</a></li>
-										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/nike.html">NIKE</a></li> 
-										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/puma%20123.html">PUMA</a></li> 
-										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/vans.html">VANS</a></li> 
-										<li><a href="http://localhost/LVTN_laravel/dong-san-pham/converse.html">CONVERSE</a></li> 
+										@foreach($dongsanpham as $dsp)
+                                        <li><a href="{{URL::to('/dong-san-pham/'.$dsp->slug_dongsp.'.html')}}">{{ $dsp->ten_dongsp }}</a></li>
+										@endforeach
                                     </ul>
                                 </li> 
-								{{--  <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li>   --}}
-								<li><a href="https://kingshoes.vn/gioi-thieu">GIỚI THIỆU</a></li>
-								<li><a href="https://kingshoes.vn/lien-he">LIÊN HỆ</a></li>
+								<li><a href="{{URL::to('/')}}">GIỚI THIỆU</a></li>
+								<li><a href="{{URL::to('/')}}">LIÊN HỆ</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-5">
-						{{-- <form action="{{URL::to('/tim-kiem')}}" method="POST">
-                            {{csrf_field()}} --}}
+						<form action="{{URL::to('/tim-kiem')}}" method="POST">
+                            {{csrf_field()}}
                         <div class="search_box pull-right">
                             <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm"/>
-                            {{-- <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm"> --}}
+                            <input type="submit" style="margin-top:0;color:#666; width: 80px;" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
                         </div>
-                        {{-- </form> --}}
+                        </form>
 						</div>	
 					</div>
 				</div>
@@ -291,18 +266,6 @@
 								</ul>
 							</div>
 						</div><!--/brands_products-->
-						
-						<div class="price-range"><!--price-range-->
-							<h2>Chọn mức giá</h2>
-							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600000" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left"> 0</b> <b class="pull-right">600000</b>
-							</div>
-						</div><!--/price-range-->
-						
-						<div class="shipping text-center"><!--shipping-->
-							<img src="{{asset('public/frontend/images/home/shipping.jpg')}}" alt="" />
-						</div><!--/shipping-->
 					
 					</div>
 				</div>
@@ -322,6 +285,10 @@
     <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
 	<script src="{{asset('public/frontend/js/main.js')}}"></script>
+
+	<script>
+		$("div.alert").delay(3000).slideUp();
+	</script>
 	
 	<script>
 		$(document).on('click', 'ul li', function(){

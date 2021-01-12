@@ -161,4 +161,22 @@ class ThanhtoanController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function info_order(){
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+
+        $id_user = Auth::user()->id;
+        $info_order = DB::table('donhang as dh')
+                    ->join('chitiet_dh as ctdh', 'ctdh.donhang_id', '=', 'dh.donhang_id')
+                    ->join('users as user', 'user.id', '=', 'dh.user_id')
+                    ->where('dh.user_id', $id_user)
+                    ->select('dh.ma_dh', 'dh.ngaydathang', 'ctdh.ten_sp', 'ctdh.so_tien', 'ctdh.soluong', 'ctdh.size', 'ctdh.mau', 'ctdh.tongtien')
+                    ->get();
+        return view('pages.thanhtoan.info_order')
+                ->with('danhmuc', $danhmuc)
+                ->with('dongsanpham', $dongsanpham)
+                ->with('info_order', $info_order);
+    }
+
 }

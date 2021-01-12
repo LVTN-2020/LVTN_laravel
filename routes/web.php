@@ -126,7 +126,7 @@ Route::post('/add-cart-ajax','GiohangController@add_cart_ajax');
   
 
 //tim kiem
-Route::post('tim-kiem', 'HomeController@timkiem');
+// Route::post('tim-kiem', 'HomeController@timkiem');
 
 //Dang nhap + thanh toan + dang ky
 Route::get('/get-dangnhap','ThanhtoanController@get_Dangnhap');
@@ -137,11 +137,12 @@ Route::get('/get-dangky','ThanhtoanController@add_customer');
 Route::post('/get-dangky','ThanhtoanController@post_add_customer');
 Route::get('/thanh-toan','ThanhtoanController@thanh_toan');
 Route::post('/save-thanhtoan','ThanhtoanController@save_thanhtoan');
-Route::get('/payment','ThanhtoanController@payment');
-Route::post('/cap-nhap-thanh-toan','ThanhtoanController@postPayment');
+Route::get('/info-order','ThanhtoanController@info_order');
+
+
 
 //Tim kiem
-// Route::post('/tim-kiem', 'HomeController@live_search');
+Route::post('/tim-kiem', 'HomeController@live_search');
 Route::post('/tim-kiem-ajax', 'HomeController@live_search_ajax');
 
 //danhmuc trang chủ

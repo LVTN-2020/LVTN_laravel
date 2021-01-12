@@ -52,54 +52,98 @@
                     <th>ID</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá</th>
-                    {{-- <th>Sale</th> --}}
                     <th>Hình ảnh</th>
                     <th>Mô tả</th>
                     <th>Check code</th>
                     <th>Slug</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
-                    {{-- <th></th> --}}
                 </tr>
             </thead>
             <tbody>
                 <?php $stt = 0 ?>
                 @foreach($show_sp as $item)
-                <tr class="tr-shadow" style="text-align: center; ">
-                    @if($item->trangthai_sp != 0)
-                        <?php $stt += 1 ?>
-                        <td>{{ $stt }}</td>
-                        <td>{{ $item->ten_sp }}</td>
-                        <td>{{ number_format($item->gia),0,",","." }}vnđ</td>
-                        {{-- <td>{{ number_format($item->sale),0,",","." }}vnđ</td> --}}
-                        <td><img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width=200 height=200></td>
-                        <td>{{ $item->mota }}</td>
-                        <td>{{ $item->checkcode }}</td>
-                        <td>{{ $item->slug_sanpham }}</td>
-                        <td>
-                            @if($item->trangthai_sp == 1)
-                                <span class="status--process">Hiện</span>
-                            @else
-                                <span class="status--denied">Ẩn</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="table-data-feature">
-                                <a href="{{URL::to('/admin/product/product-edit/'. $item->ma_sp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="zmdi zmdi-edit"></i>
-                                </a>
-                                <a href="{{URL::to('/admin/product/product-del/'. $item->ma_sp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                    <i class="zmdi zmdi-delete"></i>
-                                </a>
-                            </div>
-                        </td>
-                    @endif
+                <tr>
+                    <?php $stt += 1 ?>
+                    <td>{{ $stt }}</td>
+                    <td>{{ $item->ten_sp }}</td>
+                    <td>{{ number_format($item->gia),0,",","." }}vnđ</td>
+                    <td><img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width=200 height=200></td>
+                    <td>{{ $item->mota }}</td>
+                    <td>{{ $item->checkcode }}</td>
+                    <td>{{ $item->slug_sanpham }}</td>
+                    <td>
+                        @if($item->trangthai_sp == 1)
+                        <span class="status--process">Hiện</span>
+                        @else
+                            <span class="status--denied">Ẩn</span>
+                        @endif
+                    </td>
+                    <td>
+                        <div class="table-data-feature">
+                            <a href="{{URL::to('/admin/product/product-edit/'. $item->ma_sp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i class="zmdi zmdi-edit"></i>
+                            </a>
+                            <a href="{{URL::to('/admin/product/product-del/'. $item->ma_sp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <i class="zmdi zmdi-delete"></i>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
                 @endforeach
-                <tr class="spacer"></tr>
             </tbody>
         </table>
     </div>
     <!-- END DATA TABLE -->
 </div>
 @endsection
+{{-- <table id="example" class="table table-striped table-bordered" style="width:100%" >
+    <thead>
+        <tr style="text-align: center;">
+            <th>ID</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Hình ảnh</th>
+            <th>Mô tả</th>
+            <th>Check code</th>
+            <th>Slug</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $stt = 0 ?>
+        @foreach($show_sp as $item)
+        <tr class="tr-shadow" style="text-align: center; ">
+            @if($item->trangthai_sp != 0)
+                <?php $stt += 1 ?>
+                <td>{{ $stt }}</td>
+                <td>{{ $item->ten_sp }}</td>
+                <td>{{ number_format($item->gia),0,",","." }}vnđ</td>
+                <td><img src="{{URL::to('public/admin/upload/'.$item->hinhanh)}}" width=200 height=200></td>
+                <td>{{ $item->mota }}</td>
+                <td>{{ $item->checkcode }}</td>
+                <td>{{ $item->slug_sanpham }}</td>
+                <td>
+                    @if($item->trangthai_sp == 1)
+                        <span class="status--process">Hiện</span>
+                    @else
+                        <span class="status--denied">Ẩn</span>
+                    @endif
+                </td>
+                <td>
+                    <div class="table-data-feature">
+                        <a href="{{URL::to('/admin/product/product-edit/'. $item->ma_sp)}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <i class="zmdi zmdi-edit"></i>
+                        </a>
+                        <a href="{{URL::to('/admin/product/product-del/'. $item->ma_sp)}}" onclick="return confirm('Bạn muốn xóa danh mục này?')" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <i class="zmdi zmdi-delete"></i>
+                        </a>
+                    </div>
+                </td>
+            @endif
+        </tr>
+        @endforeach
+        <tr class="spacer"></tr>
+    </tbody>
+</table> --}}
