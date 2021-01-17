@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Redirect, Cart, Mail;
@@ -27,27 +28,25 @@ class ThanhtoanController extends Controller
     }
     public function post_Dangnhap(Request $req){
         $this->validate($req, [
-            'user_email'=>'required',
-            'user_password'=>'required|min:3|max:32',
+            'user_email'    => 'required|email|exists:users,email',
+            'user_password' => 'required|min:6|max:32',
         
         ], [
-            'user_email.required'=>'Bạn chưa nhập Email',
-            'user_password.required'=>'Bạn chưa nhập mật khẩu ',
-            'user_password.min'=>'Mật khẩu không ít quá 3 ký tự',
-            'user_password.max'=>'Mật khẩu không dài quá 32 ký tự',
+            'user_email.required'    => 'Bạn chưa nhập Email',
+            'user_email.email'       => 'Email chưa định dạng @',
+            'user_email.exists'      => 'Email chưa tồn tại',
+            'user_password.required' => 'Bạn chưa nhập mật khẩu ',
+            'user_password.min'      => 'Mật khẩu không ít quá 6 ký tự',
+            'user_password.max'      => 'Mật khẩu không dài quá 32 ký tự',
         ]);
 
         $email = $req->user_email;
         $password = $req->user_password;
 
         if(Auth::attempt(['email' => $email, 'password' => $password])){
-             return redirect('/show-cart');
-            
+            return redirect('/show-cart');
         }else
-        {
-             return redirect('pages/thanhtoan/dangnhap_thanhtoan')->with(['flag' => 'danger', 'message' => 'Email hoặc mật khẩu của bạn bị sai']);
-            
-        }
+             return redirect('/get-dangnhap')->with(['flag' => 'danger', 'message' => 'Email hoặc mật khẩu của bạn bị sai']); 
     }
     public function getLogout(){
         Auth::logout();
@@ -59,21 +58,23 @@ class ThanhtoanController extends Controller
 
     public function post_add_customer(Request $req){
         $this->validate($req, [
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'email' => 'required|unique:users,email',
+            'name'     => 'required',
+            'phone'    => 'required|regex:/(0)[0-9]{9}/|min:10',
+            'address'  => 'required',
+            'email'    => 'required|unique:users,email',
             'password' => 'required|min:3|max:32',
             
         ], [
-            'name.required' => 'Vui lòng nhập tên người dùng',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
-            'address.required' => 'Vui lòng nhập địa chỉ',
-            'email.required' => 'Vui lòng nhập Email',
-            'email.unique' => 'Email này đã tồn tại',
+            'name.required'     => 'Vui lòng nhập tên người dùng',
+            'phone.required'    => 'Số điện thoại không được rỗng',
+            'phone.regex'       => 'Số điện thoại bắt đầu bằng số 0',
+            'phone.min'         => 'Số điện thoại phải tối thiểu 10 số',
+            'address.required'  => 'Vui lòng nhập địa chỉ',
+            'email.required'    => 'Vui lòng nhập Email',
+            'email.unique'      => 'Email này đã tồn tại',
             'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.min' => 'Mật khẩu phải nhiều hơn 3 ký tự',
-            'password.max' => 'Mật khẩu phải ít hơn 32 ký tự',
+            'password.min'      => 'Mật khẩu phải nhiều hơn 3 ký tự',
+            'password.max'      => 'Mật khẩu phải ít hơn 32 ký tự',
             
         ]);
 
@@ -102,6 +103,22 @@ class ThanhtoanController extends Controller
           ->with('ngaydathang', $ngaydathang);
     }
     public function save_thanhtoan(Request $req){
+
+        $this->validate($req, [
+            'ten_nguoinhan'     => 'required',
+            'sdt'    => 'required|regex:/(0)[0-9]{9}/|min:10',
+            'diachi'  => 'required',
+            'ma_tt'  => 'required',
+            
+        ], [
+            'ten_nguoinhan.required'     => 'Vui lòng nhập tên người dùng',
+            'sdt.required'    => 'Số điện thoại không được rỗng',
+            'sdt.regex'       => 'Số điện thoại bắt đầu bằng số 0',
+            'sdt.min'         => 'Số điện thoại phải tối thiểu 10 số',
+            'diachi.required'  => 'Vui lòng nhập địa chỉ',
+            'ma_tt.required'    => 'Vui lòng chọn hình thức thanh toán',
+        ]);
+
 
         //thêm đơn hàng
         $rand_number = rand(100,999);
@@ -154,7 +171,7 @@ class ThanhtoanController extends Controller
                 'items' =>  $get_detail,
         ],function($mail) use($cus_email,$cus_name){
             $mail->to($cus_email,$cus_name);
-            $mail->from('hp1997tg@gmail.com');
+            $mail->from('shopbangiay247@gmail.com');
             $mail->subject('Đặt hàng thành công');
             Cart::destroy();
         });
@@ -172,6 +189,7 @@ class ThanhtoanController extends Controller
                     ->join('users as user', 'user.id', '=', 'dh.user_id')
                     ->where('dh.user_id', $id_user)
                     ->select('dh.ma_dh', 'dh.ngaydathang', 'ctdh.ten_sp', 'ctdh.so_tien', 'ctdh.soluong', 'ctdh.size', 'ctdh.mau', 'ctdh.tongtien')
+                    ->orderByDesc('dh.ngaydathang')
                     ->get();
         return view('pages.thanhtoan.info_order')
                 ->with('danhmuc', $danhmuc)
@@ -179,4 +197,76 @@ class ThanhtoanController extends Controller
                 ->with('info_order', $info_order);
     }
 
+    public function info_user(){
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+
+        $id_user = Auth::user()->id;
+        $info_user = User::findOrFail($id_user);
+        
+        return view('pages.thanhtoan.info_user')
+                ->with('danhmuc', $danhmuc)
+                ->with('dongsanpham', $dongsanpham)
+
+                ->with('info_user', $info_user);
+    }
+
+    public function post_info_user(Request $req){
+        $this->validate($req, [
+            'name'       => 'required',
+            'phone'      => 'required|regex:/(0)[0-9]{9}/|min:10',
+            'address'    => 'required',
+            'email'      => 'required|email',
+        ], [
+            'name.required'       => 'Họ tên không được rỗng',
+            'phone.required'      => 'Số điện thoại không được rỗng',
+            'phone.regex'         => 'Số điện thoại bắt đầu bằng số 0',
+            'phone.min'           => 'Số điện thoại phải tối thiểu 10 số',
+            'address.required'    => 'Địa chỉ không được rỗng',
+            'email.required'      => 'Email không được rỗng',
+            'email.email'         => 'Email thiếu định dạng @',
+        ]);
+
+        $id = $req->id;
+        $get_id_user = User::findOrFail($id);
+        $get_id_user->name = $req->name;
+        $get_id_user->phone = $req->phone;
+        $get_id_user->address = $req->address;
+        $get_id_user->email = $req->email;
+        $get_id_user->level = 1;
+
+        $get_id_user->save();
+        return redirect('/info-user')->with(['flag' => 'success', 'message' => 'Cập nhật thành công']);
+    }
+
+    public function change_pass(){
+        $danhmuc = Danhmuc::select('ma_danhmuc', 'ten_danhmuc', 'trangthai_danhmuc', 'slug_danhmuc')->get();
+        $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
+
+        $id_user = Auth::user()->id;
+        $change_pass = User::findOrFail($id_user);
+        
+        return view('pages.thanhtoan.change_pass')
+                ->with('danhmuc', $danhmuc)
+                ->with('dongsanpham', $dongsanpham)
+                ->with('change_pass', $change_pass);
+    }
+    public function post_change_pass(Request $req){
+        $this->validate($req, [
+            'password'   => 'required|min:6',
+            'repassword' => 'required|same:password|min:6',
+        ], [
+            'password.required'   => 'Mật khẩu không được rỗng',
+            'password.min'        => 'Mật khẩu phải tối thiểu 6 ký tự',
+            'repassword.required' => 'Xác thực mật khẩu không được rỗng',
+            'repassword.same'     => 'Mật khẩu không trùng khớp',
+            'repassword.min'      => 'Mật khẩu phải tối thiểu 6 ký tự',
+        ]);
+
+        $id = $req->id;
+        $get_id_user = User::findOrFail($id);
+        $get_id_user->password = Hash::make($req->password);
+        $get_id_user->save();
+        return redirect('/info-user')->with(['flag' => 'success', 'message' => 'Cập nhật thành công']);
+    }
 }

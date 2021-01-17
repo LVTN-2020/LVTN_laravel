@@ -44,7 +44,7 @@ class HomeController extends Controller
         $dongsanpham = Dongsanpham::select('ma_dongsp', 'ten_dongsp', 'trangthai_dongsp', 'slug_dongsp')->get();
         $danhmucsp_slug = Danhmuc::join('sanpham as sp', 'danhmuc.ma_danhmuc', '=', 'sp.ma_danhmuc')
                                  ->where('danhmuc.ma_danhmuc', $ma_danhmuc)
-                                ->select('sp.ma_sp', 'sp.ten_sp', 'sp.gia', 'sp.hinhanh', 'sp.mota', 'sp.checkcode', 'sp.slug_sanpham')
+                                 ->select('sp.ma_sp', 'sp.ten_sp', 'sp.gia', 'sp.hinhanh', 'sp.mota', 'sp.checkcode', 'sp.slug_sanpham')
                                  ->paginate(9);
         return view('pages.danhmuc.show_danhmuc_sanpham') 
         ->with('danhmuc', $danhmuc)
@@ -72,7 +72,8 @@ class HomeController extends Controller
             $related_sanpham = DB::table('sanpham')
             ->join('danhmuc','danhmuc.ma_danhmuc','=','sanpham.ma_danhmuc')
             ->join('dongsanpham','dongsanpham.ma_dongsp','=','sanpham.ma_dongsp')
-            ->where('dongsanpham.ma_dongsp',$ma_dongsp)->whereNotIn('sanpham.slug_sanpham',[$slug_sp])->get();
+            ->where('dongsanpham.ma_dongsp',$ma_dongsp)->whereNotIn('sanpham.slug_sanpham',[$slug_sp])
+            ->get();
         $get_sub_img = DB::table('sanpham_hinhanh as sp_ha')
                             ->join('sanpham as sp', 'sp_ha.ma_sp', '=', 'sp.ma_sp')
                             ->where('sp.slug_sanpham', $slug_sp)

@@ -30,8 +30,7 @@
             <li class="page-item"><a class="page-link" href="{{str_replace('/?', '?', $danhmucsp_slug->url($danhmucsp_slug->currentPage() + 1) ) }}">Next</a></li>
             @endif
         </ul>
-        @else
-            <p>Không có sản phẩm</p>
+        
         @endif
     </nav>
 </div><!--features_items-->

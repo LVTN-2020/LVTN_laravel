@@ -68,6 +68,8 @@
                     <select class="form-control" name="danhmuc_sp">
                         @foreach($edit_dm as $dmuc)
                             @if($dmuc->ma_danhmuc == $edit_sp->ma_danhmuc)
+                                <option selected value="{{ $dmuc->ma_danhmuc }}">{{ $dmuc->ten_danhmuc }}</option>
+                            @else
                                 <option value="{{ $dmuc->ma_danhmuc }}">{{ $dmuc->ten_danhmuc }}</option>
                             @endif
                         @endforeach
@@ -78,6 +80,8 @@
                     <select class="form-control" name="dsp">
                     @foreach($edit_dsp as $dsp)
                         @if($dsp->ma_dongsp == $edit_sp->ma_dongsp)
+                            <option selected value="{{ $dsp->ma_dongsp }}">{{ $dsp->ten_dongsp }}</option>
+                        @else
                             <option value="{{ $dsp->ma_dongsp }}">{{ $dsp->ten_dongsp }}</option>
                         @endif
                     @endforeach
@@ -87,7 +91,11 @@
                     <label>Nhà cung cấp</label>
                     <select class="form-control" name="ncc_sp">
                         @foreach($edit_ncc as $ncc)
-                            <option value="{{ $ncc->ma_ncc}}">{{ $ncc->ten_ncc}}</option>
+                            @if($ncc->ma_ncc == $edit_sp->ma_ncc)
+                                <option selected value="{{ $ncc->ma_ncc}}">{{ $ncc->ten_ncc}}</option>
+                            @else
+                                <option value="{{ $ncc->ma_ncc}}">{{ $ncc->ten_ncc}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

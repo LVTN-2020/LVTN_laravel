@@ -108,7 +108,6 @@ Route::get('/logout-admin', 'AdminController@getLogout');
 //frontend
 Route::get('/','HomeController@index');
 //Dong san pham trang chu
-// Route::get('/dong-san-pham/{ma_sp}','HomeController@show_dongsp_home');
 Route::get('/dong-san-pham/{slug}.html','HomeController@show_dongsp_home');
 //chi tiet san pham
 // Route::get('/chi-tiet-san-pham/{ma_sp}','HomeController@chitiet_sp');
@@ -137,7 +136,14 @@ Route::get('/get-dangky','ThanhtoanController@add_customer');
 Route::post('/get-dangky','ThanhtoanController@post_add_customer');
 Route::get('/thanh-toan','ThanhtoanController@thanh_toan');
 Route::post('/save-thanhtoan','ThanhtoanController@save_thanhtoan');
+
 Route::get('/info-order','ThanhtoanController@info_order');
+
+Route::get('/info-user','ThanhtoanController@info_user');
+Route::post('/info-user','ThanhtoanController@post_info_user');
+
+Route::get('/change-pass','ThanhtoanController@change_pass');
+Route::post('/change-pass','ThanhtoanController@post_change_pass');
 
 
 

@@ -24,17 +24,22 @@
                 <div class="form-group">
                     <label class=" form-control-label">Mã đơn hàng</label>
                     <input type="text" name="ma_dh" value="{{$get_orderId->ma_dh}}" class="form-control" disabled>
-                    {{-- <span class="help-block">Please enter your email</span> --}}
+                </div>
+                <div class="form-group">
+                    <label class=" form-control-label">Tên sản phẩm</label>
+                    @foreach($ten_sp as $item)
+                        @if($item->donhang_id == $get_orderId->donhang_id)
+                            <input type="text" name="ma_dh" value="{{$item->ten_sp}}" class="form-control" disabled>
+                        @endif
+                    @endforeach
                 </div>
                 <div class="form-group">
                     <label for="nf-password" class=" form-control-label">Tên người nhận</label>
                     <input type="text" name="ten_nguoinhan" value="{{$get_orderId->ten_nguoinhan}}" class="form-control" disabled>
-                    {{-- <span class="help-block">Please enter your password</span> --}}
                 </div>
                 <div class="form-group">
                     <label for="nf-password" class=" form-control-label">Ngày đặt hàng</label>
                     <input type="date" name="ngaydathang" value="{{$get_orderId->ngaydathang}}" class="form-control" disabled>
-                    {{-- <span class="help-block">Please enter your password</span> --}}
                 </div>
                 <div class="form-group">
                     <label>Trạng thái đơn hàng</label>

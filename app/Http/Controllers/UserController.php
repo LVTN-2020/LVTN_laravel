@@ -15,23 +15,25 @@ class UserController extends Controller
     }
     public function postAdduser(Request $req){
         $this->validate($req, [
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:3|max:32',
+            'name'       => 'required',
+            'phone'      => 'required|regex:/(0)[0-9]{9}/|min:10',
+            'address'    => 'required',
+            'email'      => 'required|unique:users,email',
+            'password'   => 'required|min:3|max:32',
             'repassword' => 'required|same:password',
         ], [
-            'name.required' => 'Vui lòng nhập tên người dùng',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
-            'address.required' => 'Vui lòng nhập địa chỉ',
-            'email.required' => 'Vui lòng nhập Email',
-            'email.unique' => 'Email này đã tồn tại',
-            'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.min' => 'Mật khẩu phải nhiều hơn 3 ký tự',
-            'password.max' => 'Mật khẩu phải ít hơn 32 ký tự',
+            'name.required'       => 'Vui lòng nhập tên người dùng',
+            'phone.required'      => 'Vui lòng nhập số điện thoại',
+            'phone.regex'         => 'Số điện thoại bắt đầu bằng số 0',
+            'phone.min'           => 'Số điện thoại phải tối thiểu 10 số',
+            'address.required'    => 'Vui lòng nhập địa chỉ',
+            'email.required'      => 'Vui lòng nhập Email',
+            'email.unique'        => 'Email này đã tồn tại',
+            'password.required'   => 'Vui lòng nhập mật khẩu',
+            'password.min'        => 'Mật khẩu phải nhiều hơn 3 ký tự',
+            'password.max'        => 'Mật khẩu phải ít hơn 32 ký tự',
             'repassword.required' => 'Vui lòng nhập xác thực mật khẩu',
-            'repassword.same' => 'Xác thực mật khẩu chưa đúng',
+            'repassword.same'     => 'Xác thực mật khẩu chưa đúng',
         ]);
 
         $user           = new User();
@@ -59,22 +61,24 @@ class UserController extends Controller
     public function postEdituser(Request $req, $id){
         $edit_user = User::findOrFail($id);
         $this->validate($req, [
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:3|max:32',
+            'name'       => 'required',
+            'phone'      => 'required|regex:/(0)[0-9]{9}/|min:10',
+            'address'    => 'required',
+            'email'      => 'required',
+            'password'   => 'required|min:3|max:32',
             'repassword' => 'required|same:password',
         ], [
-            'name.required' => 'Vui lòng nhập tên người dùng',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
-            'address.required' => 'Vui lòng nhập địa chỉ',
-            'email.required' => 'Vui lòng nhập Email',
-            'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.min' => 'Mật khẩu phải nhiều hơn 3 ký tự',
-            'password.max' => 'Mật khẩu phải ít hơn 32 ký tự',
+            'name.required'       => 'Vui lòng nhập tên người dùng',
+            'phone.required'      => 'Vui lòng nhập số điện thoại',
+            'phone.regex'         => 'Số điện thoại bắt đầu bằng số 0',
+            'phone.min'           => 'Số điện thoại phải tối thiểu 10 số',
+            'address.required'    => 'Vui lòng nhập địa chỉ',
+            'email.required'      => 'Vui lòng nhập Email',
+            'password.required'   => 'Vui lòng nhập mật khẩu',
+            'password.min'        => 'Mật khẩu phải nhiều hơn 3 ký tự',
+            'password.max'        => 'Mật khẩu phải ít hơn 32 ký tự',
             'repassword.required' => 'Vui lòng nhập xác thực mật khẩu',
-            'repassword.same' => 'Xác thực mật khẩu chưa đúng',
+            'repassword.same'     => 'Xác thực mật khẩu chưa đúng',
         ]);
 
         $edit_user->name     = $req->name;

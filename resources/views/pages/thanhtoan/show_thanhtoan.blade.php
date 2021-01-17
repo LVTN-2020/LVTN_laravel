@@ -8,7 +8,20 @@
             </ol>
         </div>
         <div class="shopper-informations">
-            <div class="row">       
+            <div class="row">
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $err)
+                            <li>{{ $err }}</li>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if(session('message'))
+                    <div class="alert alert-{{session('flag')}}">
+                        {{session('message')}}
+                    </div>
+                @endif
                 <div class="col-sm-12 clearfix">
                     <div class="bill-to">
                         <p>Điền thông tin người nhận</p>
@@ -19,12 +32,14 @@
                                     <input type="radio" name="rdoUser" class="checkUser" value="1" checked>Bản thân
                                     <input type="radio" name="rdoUser" class="checkUser" value="2">Người khác
                                 </div>
+                                <div class="form-group" id="dataUser">
                                 @if($user)
-                                <input type="text" class="ten_nguoinhan" id="ten_nguoinhan" name="ten_nguoinhan" placeholder="Họ và tên người nhận" value="{{$user['name']}}"/>
-                                <input type="text" class="diachi" id="diachi" name="diachi" placeholder="Địa chỉ thường trú " value="{{$user['address']}}"/>
-                                <input type="text" class="sdt" id="sdt" name="sdt" placeholder="Số điện thoại" value="{{$user['phone']}}"/>
+                                    <input type="text" class="form-control ten_nguoinhan" id="ten_nguoinhan" name="ten_nguoinhan" placeholder="Họ và tên người nhận" data-val="{{$user['name']}}" value="{{old('ten_nguoinhan', isset($user) ? $user['name'] : null )}}" readonly/>
+                                    <input type="text" class="form-control diachi" id="diachi" name="diachi" placeholder="Địa chỉ thường trú " data-val="{{$user['diachi']}}" value="{{old('diachi', isset($user) ? $user['address'] : null)}}" readonly/>
+                                    <input type="text" class="form-control sdt" id="sdt" name="sdt" placeholder="Số điện thoại" data-val="{{$user['sdt']}}" value="{{old('sdt', isset($user) ? $user['phone'] : null)}}" readonly/>
                                 @endif
-                                 <select class="form-one" style="margin:0px 10px 10px 0px; " name="ma_tt" id="">
+                                </div>
+                                 <select class="form-control" style="margin:0px 10px 10px 0px; " name="ma_tt" id="">
                                     <option value="">Chọn hình thức thanh toán</option>
                                     <option value="1">Thanh toán tai nhà</option>
                                     <option value="2">Thanh toán ATM</option>
@@ -35,7 +50,7 @@
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}"/>
                                 @endif
                                 <input type="hidden" name="ma_dh" placeholder=""/>
-                                <input type="text" name="ngaydathang" value="{{$ngaydathang}}" placeholder="Ngày đặt hàng"/>
+                                <input type="text" class="form-control" name="ngaydathang" value="{{$ngaydathang}}" placeholder="Ngày đặt hàng" readonly/>
                                 <?php 
                                     $cart = Cart::content();
                                 ?>
@@ -46,7 +61,7 @@
                                 <input type="hidden" name="mau" class="table table-condensed" value="{{$item_cart->options->color}}">
                                 <input type="hidden" name="ma_sp" class="table table-condensed" value="{{$item_cart->id}}">
                                 <input type="hidden" name="so_tien" class="table table-condensed" value="{{$item_cart->price}}">
-                                <input type="text" name="tongtien" value="{{$item_cart->price * $item_cart->qty }}" placeholder="Tổng tiền"/>
+                                <input type="text" class="form-control" name="tongtien" value="{{$item_cart->price * $item_cart->qty }}" placeholder="Tổng tiền" readonly/>
                                 @endforeach
                                 <input type="hidden" name="trangthai_dh" value="Đang chờ xử lý" placeholder="Trạng thái đơn hàng"/>     
                                 <input type="submit" value="Gửi" name="send_order" class="btn btn-primary btn-sm">
@@ -64,36 +79,22 @@
     <script>
         $('.checkUser').change(function(){
             var checkUser = $('input[class="checkUser"]:checked').val();
-            console.log(checkUser);
             
-            $ten_nguoinhan = $('#ten_nguoinhan').val();
-            $diachi = $('#diachi').val();
-            $sdt = $('#sdt').val();
+            $ten_nguoinhan = $('#ten_nguoinhan').data('val', $(this).val());
+            $diachi = $('#diachi').data('val', $(this).val());
+            $sdt = $('#sdt').data('val', $(this).val());
             
             if(checkUser == 2){
-                $('#ten_nguoinhan').replaceWith('<input type="text" name="ten_nguoinhan" placeholder="Họ và tên người nhận"/>')
-                $('#diachi').replaceWith('<input type="text" name="diachi" placeholder="Địa chỉ thường trú "/>')
-                $('#sdt').replaceWith('<input type="text" name="sdt" placeholder="Số điện thoại"/>')
+                $('#dataUser').empty();
+                $('#dataUser').append('<input type="text" class="form-control" name="ten_nguoinhan" placeholder="Họ và tên người nhận"/>' +
+                                      '<input type="text" class="form-control" name="diachi" placeholder="Địa chỉ thường trú "/>' + 
+                                      '<input type="text" class="form-control" name="sdt" placeholder="Số điện thoại"/>');
             }else{
-                $.ajax({
-                    method  : 'get',
-                    url     : '{{ url("/thanh-toan") }}',
-                    dataType: 'json',
-                    data    : {
-                            '_token'       : '{{ csrf_token() }}',
-                            'ten_nguoinhan': $ten_nguoinhan,
-                            'diachi'       : $diachi,
-                            'sdt'          : $sdt
-                    },
-                    success:function(data){
-                        $('#ten_nguoinhan').replaceWith('<input type="text" name="ten_nguoinhan" placeholder="Họ và tên người nhận" value="'+data.name+'" />');
-                        $('#diachi').replaceWith('<input type="text" name="diachi" placeholder="Địa chỉ thường trú " value="'+data.address+'"/>')
-                        $('#sdt').replaceWith('<input type="text" name="sdt" placeholder="Số điện thoại" value="'+data.phone+'"/>')
-                        console.log(data);
-                    }
-                });
+                $('#dataUser').empty();
+                $('#dataUser').append('<input type="text" class="form-control" value="{{$user['name']}}" name="ten_nguoinhan" placeholder="Họ và tên người nhận" readonly/>' +
+                                      '<input type="text" class="form-control" value="{{$user['address']}}" name="diachi" placeholder="Địa chỉ thường trú " readonly/>' + 
+                                     '<input type="text" class="form-control" value="{{$user['phone']}}" name="sdt" placeholder="Số điện thoại" readonly/>');
             }
         })
-        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
     </script>
 @endsection

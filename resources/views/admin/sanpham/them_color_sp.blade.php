@@ -16,7 +16,7 @@
     @endif
     <div class="card">
         <div class="card-header">
-            <strong>Thêm</strong> size
+            <strong>Thêm</strong> màu
         </div>
         <div class="card-body card-block">
             <form action="{{URL::to('/admin/product/product-color-add')}}" method="post" enctype="multipart/form-data" class="form-horizontal">

@@ -29,8 +29,8 @@
             <td>{{$item->size}}</td>
             <td>{{$item->mau}}</td>
             <td>{{$item->soluong}}</td>
-            <td>{{$item->so_tien}}</td>
-            <td>{{$item->tongtien}}</td>
+            <td>{{number_format($item->so_tien),',','.' }}vnđ</td>
+            <td>{{number_format($item->tongtien),',','.' }}vnđ</td>
         </tr>
         @endforeach
         <tr class="spacer"></tr>

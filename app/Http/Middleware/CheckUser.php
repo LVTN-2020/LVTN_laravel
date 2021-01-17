@@ -17,9 +17,9 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next)
     {
-       if(Auth::check()){
-           return redirect('/admin');
-       }else
+        if(Auth::check()){
+            return redirect('/admin');
+        }else
             return $next($request);
         
     }

@@ -112,6 +112,11 @@
 									</a>
 								</li>
 								<li>
+									<a href="{{URL::to('/info-user')}}">
+										<i class="fa fa-user"></i>Thong tin khach hang
+									</a>
+								</li>
+								<li>
 									<a href="{{URL::to('/info-order')}}">
 										<i class="fa fa-crosshairs"></i> Đơn hàng
 									</a>

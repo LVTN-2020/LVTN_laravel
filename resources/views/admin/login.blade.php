@@ -64,18 +64,13 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <input class="au-input au-input--full" type="email" name="email" value="{{old('email')}}" placeholder="Email">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                    <input class="au-input au-input--full" type="password" name="password" value="{{old('password')}}" placeholder="Password">
                                 </div>
-                                <div class="login-checkbox">
-                                    <label>
-                                        {{-- <input type="checkbox" name="remember">Remember Me --}}
-                                    </label>
-                                </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Sign in</button>
                             </form>
                         </div>
                     </div>

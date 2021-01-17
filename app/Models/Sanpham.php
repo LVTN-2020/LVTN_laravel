@@ -22,4 +22,14 @@ class Sanpham extends Model
     public function productSuppler(){
         return $this->belongsTo('App\Models\Nhacungcap');
     }
+
+    public function productImage(){
+        return $this->hasMany('App\Models\Sanpham_ha');
+    }
+    public function productSize(){
+        return $this->hasMany('App\Models\Sanpham_size');
+    }
+    public function productColor(){
+        return $this->hasMany('App\Models\Sanpham_mau');
+    }
 }

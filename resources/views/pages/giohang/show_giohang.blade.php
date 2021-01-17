@@ -8,6 +8,19 @@
               <li class="active">Giỏ hàng của bạn</li>
             </ol>
         </div>
+        @if(count($errors) > 0)
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $err)
+                    <li>{{ $err }}</li>
+                @endforeach
+            </div>
+        @endif
+        
+        @if(session('message'))
+            <div class="alert alert-{{session('flag')}}">
+                {{session('message')}}
+            </div>
+        @endif
         <div class="table-responsive cart_info">
             <?php
                 $content = Cart::content();
@@ -26,8 +39,6 @@
                 </thead>
                 <tbody>
                     @foreach ($content as $item_content)
-                        
-                 
                     <tr>
                         <td class="cart_product">
                             <a href=""><img src="{{URL::to('public/admin/upload/'.$item_content->options->image)}}" width="50" height="50" alt=""></a>

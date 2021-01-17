@@ -15,7 +15,8 @@ class DonhangController extends Controller
     }
     public function getEditorder($id){
         $get_orderId = Donhang::find($id);
-        return view('admin.donhang.sua_donhang')->with('get_orderId', $get_orderId);
+        $ten_sp = ChitietDH::all();
+        return view('admin.donhang.sua_donhang')->with('get_orderId', $get_orderId)->with('ten_sp', $ten_sp);
     }
     public function postEditorder(Request $req, $id){
         $update_order = Donhang::findOrFail($id);

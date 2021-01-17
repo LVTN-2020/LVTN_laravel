@@ -54,6 +54,14 @@ class GiohangController extends Controller
         return redirect('/show-cart'); 
     }
     public function capnhat_giohang(Request $request){
+        $this->validate($request, [
+            'quantity'   => 'required|numeric|gt:0',
+        ], [
+            'quantity.required' => 'Vui lòng không để số lượng rỗng',
+            'quantity.numeric'  => 'Vui lòng nhập lại số lượng bằng số',
+            'quantity.gt'       => 'Vui lòng nhập lại số lượng > 0',
+        ]);
+
         $rowId = $request->rowId_giohang;
         $qty = (int)$request->quantity;
         Cart::update($rowId,$qty);

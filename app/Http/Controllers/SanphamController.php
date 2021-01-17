@@ -30,28 +30,43 @@ class SanphamController extends Controller
         $this->validate($req, [
             'tensp'      => 'required|unique:sanpham,ten_sp',
             'fImages'    => 'required|mimes:jpeg,jpg,png',
+            'gia'        => 'required|numeric|regex:/^[1-9][0-9]+/',
+            'sale'       => 'required|numeric|regex:/^[1-9][0-9]+/',
+            'mota'       => 'required',
+            'checkcode'  => 'required',
+            'slug_sp'    => 'required',
             'danhmuc_sp' => 'required',
             'dsp'        => 'required',
             'ncc_sp'     => 'required',
         ], [
-            'tensp.required'   => 'Vui lòng điền tên sản phẩm',
-            'tensp.unique'     => 'Không được trùng tên sản phẩm',
-            'fImages.required' => 'Vui lòng không để hình ảnh rỗng',
-            'fImages.mimes'    => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
-            'danhmuc_sp'       => 'Vui lòng chọn danh mục',
-            'dsp'              => 'Vui lòng chọn dòng sản phẩm',
-            'ncc_sp'           => 'Vui lòng chọn nhà cung cấp',
+            'tensp.required'     => 'Vui lòng điền tên sản phẩm',
+            'tensp.unique'       => 'Không được trùng tên sản phẩm',
+            'fImages.required'   => 'Vui lòng không để hình ảnh rỗng',
+            'fImages.mimes'      => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
+            'gia.required'       => 'Vui lòng điền giá tiền sản phẩm',
+            'gia.numeric'        => 'Vui lòng nhập lại giá tiền bằng số',
+            'gia.regex'        => 'Vui lòng nhập lại giá tiền > 0',
+            'sale.required'      => 'Vui lòng điền giá sale sản phẩm',
+            'sale.numeric'       => 'Vui lòng nhập lại giá sale bằng số',
+            'sale.regex'       => 'Vui lòng nhập lại giá sale > 0',
+            'mota.required'      => 'Vui lòng không để trống mô tả',
+            'checkcode.required' => 'Vui lòng không để trống mã checkcode',
+            'slug_sp.required'   => 'Vui lòng không để trống tên bí danh',
+            'danhmuc_sp'         => 'Vui lòng chọn danh mục',
+            'dsp'                => 'Vui lòng chọn dòng sản phẩm',
+            'ncc_sp'             => 'Vui lòng chọn nhà cung cấp',
         ]);
+        
 
         $file_name            = $req->file('fImages')->getClientOriginalName();
         $add_sp               = new Sanpham();
         $add_sp->ten_sp       = $req->tensp;
-        $add_sp->gia          = $req->gia;
-        $add_sp->sale         = $req->sale;
+        $add_sp->gia          = (int)$req->gia;
+        $add_sp->sale         = (int)$req->sale;
         $add_sp->hinhanh      = $file_name;
         $add_sp->mota         = $req->mota;
         $add_sp->checkcode    = $req->checkcode;
-        $add_sp->slug_sanpham = $req->slug_sp;
+        $add_sp->slug_sanpham = str_replace(' ', '-', $req->slug_sp);
         $add_sp->trangthai_sp = $req->trangthai;
         $add_sp->ma_danhmuc   = $req->danhmuc_sp;
         $add_sp->ma_dongsp    = $req->dsp;
@@ -82,10 +97,36 @@ class SanphamController extends Controller
     public function postEditProduct(Request $req, $id){
 
         $this->validate($req, [
-            'fImages' => 'nullable|sometimes|image|mimes:jpeg,jpg,png'
+            'tensp'      => 'required|unique:sanpham,ten_sp',
+            'fImages'    => 'required|mimes:jpeg,jpg,png',
+            'gia'        => 'required|numeric|regex:/^[1-9][0-9]+/',
+            'sale'       => 'required|numeric|regex:/^[1-9][0-9]+/',
+            'mota'       => 'required',
+            'checkcode'  => 'required',
+            'slug_sp'    => 'required',
+            'danhmuc_sp' => 'required',
+            'dsp'        => 'required',
+            'ncc_sp'     => 'required',
         ], [
-            'fImages.mimes'    => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
+            'tensp.required'     => 'Vui lòng điền tên sản phẩm',
+            'tensp.unique'       => 'Không được trùng tên sản phẩm',
+            'fImages.required'   => 'Vui lòng không để hình ảnh rỗng',
+            'fImages.mimes'      => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
+            'gia.required'       => 'Vui lòng điền giá tiền sản phẩm',
+            'gia.numeric'        => 'Vui lòng nhập lại giá tiền bằng số',
+            'gia.regex'          => 'Vui lòng nhập lại giá tiền > 0',
+            'sale.required'      => 'Vui lòng điền giá sale sản phẩm',
+            'sale.numeric'       => 'Vui lòng nhập lại giá sale bằng số',
+            'sale.regex'         => 'Vui lòng nhập lại giá sale > 0',
+            'mota.required'      => 'Vui lòng không để trống mô tả',
+            'checkcode.required' => 'Vui lòng không để trống mã checkcode',
+            'slug_sp.required'   => 'Vui lòng không để trống tên bí danh',
+            'danhmuc_sp'         => 'Vui lòng chọn danh mục',
+            'dsp'                => 'Vui lòng chọn dòng sản phẩm',
+            'ncc_sp'             => 'Vui lòng chọn nhà cung cấp',
         ]);
+
+        $slug_edit = str_replace('-', ' ', $req->slug_sp);
 
         $get_img = $req->file('fImages');
         $sanpham               = Sanpham::find($id);
@@ -94,7 +135,7 @@ class SanphamController extends Controller
         $sanpham->sale         = $req->sale;
         $sanpham->mota         = $req->mota;
         $sanpham->checkcode    = $req->checkcode;
-        $sanpham->slug_sanpham = $req->slug_sp;
+        $sanpham->slug_sanpham = str_replace(' ', '-', $req->slug_sp);
         $sanpham->trangthai_sp = $req->trangthai;
         $sanpham->ma_danhmuc   = $req->danhmuc_sp;
         $sanpham->ma_dongsp    = $req->dsp;
@@ -127,10 +168,9 @@ class SanphamController extends Controller
         $del_color_sp = Sanpham_mau::join('sanpham as sp', 'sanpham_mau.ma_sp', 'sp.ma_sp')
                                 ->where('sanpham_mau.ma_sp', $id)
                                 ->delete();
-        // $del_sp = Sanpham::find($id);
+        $del_sp = Sanpham::find($id);
         // File::delete('public/admin/upload/'. $del_sp->hinhanh);
-        // $del_sp->delete();
-        $del_sp = Sanpham::where(['ma_sp' => $id])->update(['trangthai_sp' => 0]);
+        $del_sp->delete();
         return redirect('/admin/product/product-list')->with(['flag' => 'success', 'message' => 'Xóa sản phẩm thành công']);
         
     }
@@ -141,6 +181,12 @@ class SanphamController extends Controller
         return view('admin.sanpham.them_ha_sp')->with('show_sp', $show_sp);
     }
     public function postAddProductImage(Request $req){
+        $this->validate($req, [
+            'fImagesDetail'    => 'required|mimes:jpeg,jpg,png',
+        ], [
+            'fImagesDetail.required'   => 'Vui lòng không để hình ảnh rỗng',
+            'fImagesDetail.mimes'      => 'Vui lòng định dạng đúng jpeg, jpg hoặc png',
+        ]);
         $file_name = $req->file('fImagesDetail')->getClientOriginalName();
         $add_img   = new Sanpham_ha();
 
@@ -159,6 +205,13 @@ class SanphamController extends Controller
         return view('admin.sanpham.them_size_sp')->with('show_sp', $show_sp);
     }
     public function postAddProductSize(Request $req){
+        $this->validate($req, [
+            'size'    => 'required|numeric|gt:0',
+        ], [
+            'size.required' => 'Vui lòng không để size rỗng',
+            'size.numeric'  => 'Vui lòng nhập lại size bằng số',
+            'size.gt'       => 'Vui lòng nhập lại size',
+        ]);
         $add_size                 = new Sanpham_size();
         $add_size->size           = $req->size;
         $add_size->trangthai_size = $req->trangthai_size;
@@ -174,6 +227,12 @@ class SanphamController extends Controller
         return view('admin.sanpham.them_color_sp')->with('show_sp', $show_sp);
     }
     public function postAddProductColor(Request $req){
+        $this->validate($req, [
+            'color'    => 'required|regex:/(^[\pLa-zA-Z ]+$)/u',
+        ], [
+            'color.required' => 'Vui lòng nhập màu',
+            'color.regex'    => 'Vui lòng nhập lại màu bằng chữ'
+        ]);
         $add_color                 = new Sanpham_mau();
         $add_color->mau           = $req->color;
         $add_color->trangthai_mau = $req->trangthai_color;

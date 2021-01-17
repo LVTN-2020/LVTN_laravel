@@ -12,4 +12,6 @@ class Sanpham_ha extends Model
     protected $table = 'sanpham_hinhanh';
     protected $fillable = ['hinhanh', 'trangthai_hinhanh', 'ma_sp'];
     protected $primaryKey = 'ma_hinhanh';
+
+
 }

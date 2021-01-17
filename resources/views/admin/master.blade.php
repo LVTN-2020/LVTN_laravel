@@ -152,9 +152,9 @@
                                             <a class="js-acc-btn" href="#">{{Auth::user()->name}}</a>
                                             @endif
                                         </div>
-                                        <div class="account-dropdown js-dropdown" style="mix-width: 150px;">
+                                        <div class="account-dropdown js-dropdown">
                                             <div class="account-dropdown__footer">
-                                                <a href="{{URL::to('/logout-admin')}}">
+                                                <a href="{{URL::to('/logout-admin')}}" style="width: 300px">
                                                     <i class="zmdi zmdi-power"></i>Đăng xuất</a>
                                             </div>
                                         </div>

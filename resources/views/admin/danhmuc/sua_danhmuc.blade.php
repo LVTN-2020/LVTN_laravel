@@ -18,6 +18,7 @@
         <div class="card-header">
             <strong>Sửa</strong> danh mục
         </div>
+        {{-- @php echo '<pre>'; print_r($id);  echo '</pre>'; @endphp --}}
         <div class="card-body card-block">
             <form action="{{URL::to('/admin/cate/cate-update/'. $edit_dm->ma_danhmuc)}}" method="post" class="">
                 @csrf
